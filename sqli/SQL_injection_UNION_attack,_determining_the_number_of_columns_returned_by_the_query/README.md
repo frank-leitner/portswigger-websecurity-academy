@@ -2,7 +2,8 @@
 
 Lab-Link: <https://portswigger.net/web-security/sql-injection/union-attacks/lab-determine-number-of-columns>  
 Difficulty: PRACTITIONER  
-Python script: [script.py](script.py)
+Python script: [script.py](script.py)  
+Python script (manual payload): [script_manual.py](script_manual.py)
 
 ## Known information
 
