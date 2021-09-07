@@ -23,7 +23,7 @@ SELECT * FROM someTable WHERE category=<CATEGORY>
 
 ### Confirm vulnerability
 
-The first steps are **mostly** identical with the labs [SQL injection UNION attack, determining the number of columns returned by the query](../SQL_injection_UNION_attack,_determining_the_number_of_columns_returned_by_the_query/README.md) and [SQL injection UNION attack, finding a column containing text](../SQL_injection_UNION_attack,_finding_a_column_containing_text/README.md) and are not repeated here. The difference is that on MySQL and MSSQL, a `#` is best used from beginning a comment instead of the `--`.
+The first steps are **mostly** identical with the labs [SQL injection UNION attack, determining the number of columns returned by the query](../SQL_injection_UNION_attack,_determining_the_number_of_columns_returned_by_the_query/README.md) and [SQL injection UNION attack, finding a column containing text](../SQL_injection_UNION_attack,_finding_a_column_containing_text/README.md) and are not repeated here. The difference is that on MySQL (which appears to be used here), a `#` is best used from beginning a comment instead of the `--`.
 
 The number of colums in this case is 2, with both being string columns.
 
