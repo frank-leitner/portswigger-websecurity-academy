@@ -108,6 +108,16 @@ Filtering on server errors again, we can read the password: `3bk8bdchxubqft2tgsx
 
 ![Brute force password, result](img/brute_force_of_password_result.png)
 
+### Alternative
+
+It is also possible to move the conditional check (e.g. the length of substring part) into the condition of the `SELECT CASE WHEN` portion.
+
+`'||(SELECT CASE WHEN (substr(password,1,1)='a') THEN to_char(1/0) ELSE NULL END FROM users WHERE username='administrator')||'`
+
+For the length, the string is shown in this picture:
+
+![Condition in a different location](img/condition_different_location.png)
+
 ## Try login
 
 ![Login successful](img/Win.png)
