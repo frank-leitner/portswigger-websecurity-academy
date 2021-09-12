@@ -2,6 +2,7 @@
 
 Lab-Link: <https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band>  
 Difficulty: PRACTITIONER  
+Burp Suite Professional is required to solve this lab!
 
 ## Known information
 
