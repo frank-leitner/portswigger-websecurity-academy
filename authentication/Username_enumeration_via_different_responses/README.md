@@ -26,8 +26,8 @@ Load the page in Burp Intruder, with the username as only payload
 
 ![Burp Intruder payload position](img/intruder_positions.png)
 
-Attack type: *Sniper*
-Payload: *provided username list*
+- Attack type: *Sniper*
+- Payload: *provided username list*
 
 After running the enumeration, we need to find the valid usernames. The page shows `invalid username` if the user is not found, so use a negative filter for this:
 
@@ -41,8 +41,8 @@ In the screenshot above we clearly see another very verbose error message, so we
 
 ![Burp Intruder payload position password](img/intruder_password_position.png)
 
-Attack type: *Sniper*
-Payload: *provided password list*
+- Attack type: *Sniper*
+- Payload: *provided password list*
 
 ![Burp Intruder password found](img/password_found.png)
 

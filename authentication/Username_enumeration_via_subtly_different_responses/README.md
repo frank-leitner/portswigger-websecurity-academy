@@ -22,8 +22,8 @@ As a first step, go to the page and try to login with some random username and p
 
 But perhaps the error message is hardcoded in two places, and on one there is a slight typo? Load the page in Burp Intruder, with the username as only payload.
 
-Attack type: *Sniper*
-Payload: *provided username list*
+- Attack type: *Sniper*
+- Payload: *provided username list*
 
 After running the enumeration, we need to find the valid usernames. The page shows `Invalid username or password.`. Lets use this exact string as negative filter and see if if there is a different message found.
 
@@ -37,8 +37,8 @@ Username found: **apps**
 
 Now repeat the step for the password until the correct password ist found
 
-Attack type: *Sniper*
-Payload: *provided password list*
+- Attack type: *Sniper*
+- Payload: *provided password list*
 
 ![Burp Intruder password found](img/password_found.png)
 

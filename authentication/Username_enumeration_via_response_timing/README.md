@@ -23,8 +23,8 @@ As a first step, go to the page and try to login with some random username and p
 
 The next step appears simple. The lab description mentions a timing differences, so load the request into Intruder, load the provided username list and add the known good username `wiener`.
 
-Attack type: *Sniper*
-Payload: *provided username list* + `wiener`
+- Attack type: *Sniper*
+- Payload: *provided username list* + `wiener`
 
 Unfortunately, this does not result in a serious difference in response times. Upon closer look it becomes obvious why:
 
@@ -36,8 +36,8 @@ Adding it with a random value `X-Forwarded-For: abc123` will allow for further l
 
 ![second intruder attempt with custom header](img/use-custom-header.png)
 
-Attack type: *Battering ram*
-Payload: *provided username list* + `wiener`
+- Attack type: *Battering ram*
+- Payload: *provided username list* + `wiener`
 
 Unfortunately, the results are still inconclusive. The response time ranges from 68ms to 132ms. The one known correct username `wiener` is right in the middle of the response time with 93ms.
 
@@ -57,8 +57,8 @@ Now repeat the step for the password until the correct password ist found. Chang
 
 ![enumerate password](img/enumerate-password.png)
 
-Attack type: *Battering ram*
-Payload: *provided password list*
+- Attack type: *Battering ram*
+- Payload: *provided password list*
 
 On a successful login, the page redirects, so remove all responses with 2xx status codes (alternative, filter for responses not containing 'Invalid username or password'
 
