@@ -86,7 +86,7 @@ def main():
     if verify_login(url, username, password):
         print(f'[+] Login successful, lab solved')
     else:
-        print(f'[+] Login not successful')
+        print(f'[-] Login not successful')
 
 
 if __name__ == "__main__":
