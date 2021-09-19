@@ -40,6 +40,8 @@ Also ensure that only a single concurrent request is used:
 
 ![limit resource pool](img/resource_pool.png)
 
+Start the attack. As only a single request is send at a time, and it is basically not one but four requests each time, this is painfully slow. But, after a time a response comes back that is a redirect:
+
 ![correct mfa code found](img/result_mfa.png)
 
 Show results in Browser nets a:
