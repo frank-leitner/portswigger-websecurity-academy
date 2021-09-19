@@ -24,13 +24,15 @@ Using Burp Suite, it immediately shows the decoded value in the Inspector:
 
 ![stay_logged_in_cookie_decoded](img/stay_logged_in_cookie_decoded.png)
 
-It can be seen that the username is part of the cookie. If I can guess the second part it becomes possible to create valid cookies for any known user.
+It can be seen that the username is part of the cookie. If I can guess the second part correctly for a user it becomes possible to create valid cookies for that user.
 
 ![hash](img/hash.png)
 
-The second part looks like a hash and is 32 characters long, which lets me think md5. Lets see if it is a simple md5 of the username (which would be a really fatal flaw) or the password (which would be not much better):
+The second part looks like a hash and is 32 characters long, which lets me think md5. Lets see if it is a simple md5 of the username (which would be a really fatal flaw as no password would be required) or the password (which would be not much better):
 
 ![md5_analysed](img/md5_analysed.png)
+
+And indeed, the second part is an md5 hash of the password
 
 ### Brute force the cookie
 
