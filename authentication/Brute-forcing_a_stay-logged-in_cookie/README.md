@@ -41,7 +41,7 @@ Send the request of the account page to Burp Intruder, setting the `stay-logged-
 - Attack type: **Sniper**
 - Payload: ![brute_force](img/brute_force.png)
 
-I also set on the options page a matching rule to quickly see if I am logged in as user `carlos`:
+For each of the passwords, I hash it, add the username in front and base64-encode everything. I also set on the options page a matching rule to quickly see if I am logged in as user `carlos`:
 
 ![matching rule](img/matching_rule.png)
 

