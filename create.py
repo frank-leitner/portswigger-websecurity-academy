@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# Lab: Username enumeration via subtly different responses
-# Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-subtly-different-responses>
-# Difficulty: PRACTITIONER
 import argparse
 from bs4 import BeautifulSoup
 import fileinput
