@@ -21,7 +21,7 @@ Like in the previous labs of the path traversal section, we start to analyse how
 
 The application checks that the path starts with the expected values, in this case the absolute path `/var/www/images`, so neither different absolute paths (`/etc/passwd`) nor relative paths (`../../../etc/passwd`) are possible.
 
-What the application lacks is any of the checks of the previous labs (not that they were ideal). So as long as the provided absolute path starts with the expected value, we can input any character sequence like backing out again with `../` until we reach the root.
+What the application lacks is any of the checks of the previous labs (not that they were ideal). So as long as the provided absolute path starts with the expected value, we can input any character sequence like backing out again with `../` until we reach the root and can access `/etc/passwd` from there.
 
 ![request](img/request.png)
 
