@@ -33,7 +33,7 @@ echo system("someScript.sh $_REQUEST['productID'] $_REQUEST['storeId']")
 
 The parameters are used as arguments for the script, its output is directly echoed back onto the HTML.
 
-There are two main ways to execute multiple commands in one line in a shell, separating the individual commands with `&` or `;`. Both will execute the commands in order, the difference comes when one of the commands fails. Using `&` will execute the next command only if the previous command succeeds, with `;` the return status of the previous command is ignored.
+There are multiple ways to execute multiple commands in one line in a shell, separating the individual commands with for example `&`, `&&`, `|`, `||`, `;`. All behave slightly different. On Unix systems, my favourite is `;` as it completely separates the commands without side effects based on return conditions or execution order. In some conditions `&` is actually better as it backgrounds the command prior to my injection and runs my code without waiting for the other command to finish. Still, my favourite remains `;`.
 
 SomeScript.sh might return a fail status without its arguments. We don't know the order of the arguments, and there might be more than just these two. Ideally, I want to just ignore the script completely and execute my injected command regardless.
 
