@@ -53,7 +53,7 @@ def main():
     if credentials is not None:
         print(f"[+] Username: {credentials['username']}")
         print(f"[+] Password: {credentials['password']}")
-        if login(host, credentials['username'], credentials['password'], allow_redirects=True) == 9:
+        if login(host, credentials['username'], credentials['password'], allow_redirects=True) == 2:
             print(f"[+] Verified successful lab completion")
         else:
             print(f'[-] Failed to verify credentials, try to login manually')
