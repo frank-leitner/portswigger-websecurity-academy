@@ -66,7 +66,7 @@ def main():
 
     r = client.get(f'{host}/admin/delete?username=carlos')
     if 'Congratulations, you solved the lab!' not in r.text:
-        print(f'[-] Failed to delete user carlos lab')
+        print(f'[-] Failed to delete user carlos')
         sys.exit(-5)
 
     print(f'[+] Deleted user carlos, lab solved')
