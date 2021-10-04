@@ -2,7 +2,7 @@
 
 Lab-Link: <https://portswigger.net/web-security/information-disclosure/exploiting/lab-infoleak-in-version-control-history>  
 Difficulty: PRACTITIONER  
-Python script: [script.py](script.py)  
+Python script: [script.py](script.py) NB: Not platform independent, works on Linux only (and perhaps on Mac). On Windows, it may run with WSL.
 
 ## Known information
 

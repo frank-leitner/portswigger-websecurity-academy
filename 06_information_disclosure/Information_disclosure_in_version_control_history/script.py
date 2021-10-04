@@ -2,6 +2,7 @@
 # Lab: Information disclosure in version control history
 # Lab-Link: https://portswigger.net/web-security/information-disclosure/exploiting/lab-infoleak-in-version-control-history
 # Difficulty: PRACTITIONER
+# NB: Not platform independent, works on Linux only (and perhaps on Mac). On Windows, it may run with WSL.
 from bs4 import BeautifulSoup
 import os
 import requests
