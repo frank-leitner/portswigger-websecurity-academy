@@ -47,9 +47,9 @@ def get_details(url):
 
     d = {}
     try:
-        d['title'] = soup.find('h1').text
+        d['title'] = soup.find('h1').text.strip()
         d['url'] = url
-        d['level'] = soup.find('div', {'class': 'widget-container-labelevel'}).span.text
+        d['level'] = soup.find('div', {'class': 'widget-container-labelevel'}).span.text.strip()
     except AttributeError:
         logging.error(f'Failed to extract some info from page')
         return False
