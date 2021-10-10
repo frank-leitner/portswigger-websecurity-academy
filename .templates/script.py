@@ -17,7 +17,9 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    print(f'[ ] Brute force username and password')
+    client = requests.Session()
+    client.verify = False
+    client.proxies = proxies
 
 
 if __name__ == "__main__":
