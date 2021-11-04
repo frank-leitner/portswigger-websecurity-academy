@@ -2,7 +2,8 @@
 
 Lab-Link: <https://portswigger.net/web-security/os-command-injection/lab-blind-out-of-band>  
 Difficulty: PRACTITIONER  
-Python script: Currently no script
+Python script: No script available  
+Burp Suite Professional is required to solve this lab!
 
 ## Known information
 
