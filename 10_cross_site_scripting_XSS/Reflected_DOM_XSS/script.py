@@ -25,7 +25,7 @@ def main():
     url = host + '''?search=\\"};alert(document.domain);//'''
     client.get(url)
 
-    # This should not solve the lab as the get call above does not run the 
+    # This should not solve the lab as the get call above does not run the
     # client side javascript and thus does not result in the secondary call
     # to "/search-results" which contains the reflected malicious code.
     # However, it solves the lab as it appears to check whether this call
