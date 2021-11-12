@@ -12,6 +12,8 @@ Python script: [script.py](script.py)
 
 ## Steps
 
+### The (currently) working but 'wrong' way
+
 As usual, the first step is to analyse the application. As a test I post a comment with an HTML tag in all fields (except the email). It results in this HTML:
 
 ![html](img/html.png)
@@ -39,3 +41,11 @@ The lab updates to
 ![success](img/success.png)
 
 (technically, the lab updates to 'solved' directly after sending the comment, not after clicking the link)
+
+### And now the correct way
+
+After seeing the 'solved' image above I realized that I did not read the lab name properly before. It seems that the double quotes should be HTML-encoded and not be usable here. As such I assume that escape of the href and injecting another attribute is not the intended solution here.
+
+A way to inject the `alert` within the href attribute is to inject a JavaScript URL: `javascript:alert(document.domain)` as website. This results in this HTML which also solves the lab and is, I guess, the intended solution:
+
+![correct_solution](img/correct_solution.png)
