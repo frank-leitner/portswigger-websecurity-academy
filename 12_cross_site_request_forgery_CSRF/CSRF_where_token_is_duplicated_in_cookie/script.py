@@ -54,6 +54,7 @@ def main():
     if exploit_server is None:
         print(f'[-] Failed to find exploit server')
         sys.exit(-2)
+    print(f'[+] Exploit server: {exploit_server}')
 
     if not store_exploit(client, exploit_server, host):
         print(f'[-] Failed to store exploit file')
@@ -70,7 +71,6 @@ def main():
         sys.exit(-9)
 
     print(f'[+] Lab solved')
-    print(f'[+] Exploit server: {exploit_server}')
 
 
 if __name__ == "__main__":
