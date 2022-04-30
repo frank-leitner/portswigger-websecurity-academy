@@ -1,8 +1,8 @@
-# Writeup: <LAB_NAME> @ PortSwigger Academy
+# Write-up: <LAB_NAME> @ PortSwigger Academy
 
 ![logo](img/logo.png)
 
-This is a writeup for the lab "<LAB_NAME>" from PortSwiggers Web Security Academy:
+This is a write-up for the lab "<LAB_NAME>" from PortSwiggers Web Security Academy:
 
 <<LAB_LINK>>  
 
