@@ -1,14 +1,21 @@
-# <LAB_NAME>
+# Writeup: <LAB_NAME> @ PortSwigger Academy
 
-Lab-Link: <<LAB_LINK>>  
+![logo](img/logo.png)
+
+This is a writeup for the lab "<LAB_NAME>" from PortSwiggers Web Security Academy:
+
+<<LAB_LINK>>  
+
 Difficulty: <LAB_LEVEL>  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
 - 
-- Goals:
-  - 
+
+### Goals
+
+- 
 
 ## Steps
 

@@ -5,7 +5,7 @@ import fileinput
 import logging
 import os
 import requests
-from shutil import copy
+from shutil import copytree
 import sys
 
 
@@ -60,17 +60,20 @@ def get_details(url):
 def create_skeleton(details):
     template_dir = f'{os.path.dirname(os.path.realpath(__file__))}/.templates'
     target_dir = os.path.join(os.getcwd(), details['title'][5:].replace(' ', '_'))
-    os.mkdir(target_dir)
 
-    for file in os.listdir(template_dir):
-        if os.path.isfile(f'{template_dir}/{file}'):
-            copy(f'{template_dir}/{file}', target_dir)
+    copytree(template_dir, target_dir)
 
-            for line in fileinput.input(f'{target_dir}/{file}', inplace=1):
-                line = line.replace('<LAB_NAME>', details['title'])
-                line = line.replace('<LAB_LINK>', details['url'])
-                line = line.replace('<LAB_LEVEL>', details['level'])
-                print(line, end='')
+    for file in os.listdir(target_dir):
+        logging.debug(f'file: {file}')
+
+        if not os.path.isfile(f'{target_dir}/{file}'):
+            continue
+
+        for line in fileinput.input(f'{target_dir}/{file}', inplace=1):
+            line = line.replace('<LAB_NAME>', details['title'][5:])
+            line = line.replace('<LAB_LINK>', details['url'])
+            line = line.replace('<LAB_LEVEL>', details['level'])
+            print(line, end='')
 
 
 def main():
