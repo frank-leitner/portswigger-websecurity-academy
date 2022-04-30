@@ -2,10 +2,9 @@
 
 ![logo](img/logo.png)
 
-This is a write-up for the lab "<LAB_NAME>" from PortSwiggers Web Security Academy:
+This write-up for the lab "<LAB_NAME>" is part of my walk-through series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
-<<LAB_LINK>>  
-
+Lab-Link: <<LAB_LINK>>  
 Difficulty: <LAB_LEVEL>  
 Python script: [script.py](script.py)  
 
