@@ -38,7 +38,9 @@ The referer header is usually added by the browser automatically when a link is 
 
 ![removed_referer_header](img/removed_referer_header.png)
 
-The request goes through and the email gets changed. So the only protection that is in place here is the content of the referer. Relying on a client provided value is always a bad thing. A malicious actor that is able to intercept the traffic can manipulate it at will.
+The request goes through and the email gets changed. So the only protection that is in place here is the content of the referer. This is a violation of the condition **Validate on every action**.
+
+Relying on a client provided value is always a bad thing. A malicious actor that is able to intercept the traffic can manipulate it at will.
 
 While I can modify my own traffic, I do not have the capability for the traffic of my victim. In this case I need to coerce the browser of the victim to not send the header.
 
