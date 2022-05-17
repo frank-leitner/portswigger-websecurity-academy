@@ -1,15 +1,22 @@
-# Lab: SQL injection UNION attack, determining the number of columns returned by the query
+# Write-up: SQL injection UNION attack, determining the number of columns returned by the query
+
+![logo](img/logo.png)
+
+This write-up for the lab *SQL injection UNION attack, determining the number of columns returned by the query* is part of my walk-through series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
 Lab-Link: <https://portswigger.net/web-security/sql-injection/union-attacks/lab-determine-number-of-columns>  
 Difficulty: PRACTITIONER  
 Python script: [script.py](script.py)  
 Python script (manual payload): [script_manual.py](script_manual.py)
 
-## Known information
+## Lab description
 
 - vulnerable to SQL injection in the product category filter
 - UNION based vulnerability
-- Goal: Find out correct number of colums in SQL result with a UNION attack
+
+### Goal
+
+Find out the correct number of columns in SQL result with a UNION attack
 
 ## Query
 
@@ -33,17 +40,17 @@ The normal argument is e.g. `/filter?category=Accessories`. Start by injecting a
 SELECT * FROM someTable WHERE category = 'Accessories''
 ```
 
-Try the good case by injecting something that results in a valid query: `/filter?category=Accessories%27%20or%201=1--`. This results in a query like this, returning all rows and commenting the erronious single quote and anything that might come after:
+Try the good case by injecting something that results in a valid query: `/filter?category=Accessories%27%20or%201=1--`. This results in a query like this, returning all rows and commenting out the erroneous single quote and anything that might come after:
 
 ```sql
 SELECT * FROM someTable WHERE category = 'Accessories' or 1=1--'
 ```
 
-It returns the same content as with no filter, this is an indication that whatever would come afterwards and is commented out does not interfere with the result.
+It returns the same content as with no filter, this is an indication that whatever would come afterward and is commented out does not interfere with the result.
 
-### Count colums by UNION SELECT
+### Count columns by UNION SELECT
 
-In a UNION, the result sets need to contain the same number of colums. Injecting `' UNION (select null)--` will produce a server error.
+In a UNION, the result sets need to contain the same number of columns. Injecting `' UNION (select null)--` will produce a server error.
 
 ```sql
 SELECT * FROM someTable WHERE category = 'Accessories' UNION (select null)--'
@@ -59,7 +66,7 @@ SELECT * FROM someTable WHERE category = 'Accessories' UNION (select null, null,
 
 ### Count columns by ORDER BY
 
-An alternative way would be to count the columns with ORDER BY. Injecting `' ORDER BY 1--` will order the results by the first column of the result. Incrementing the value leads to an internal server error when using `' ORDER BY 4--`. Thus the correct number of colums is 3.
+An alternative way would be to count the columns with ORDER BY. Injecting `' ORDER BY 1--` will order the results by the first column of the result. Incrementing the value leads to an internal server error when using `' ORDER BY 4--`. Thus the correct number of columns is 3.
 
 ```sql
 SELECT * FROM someTable WHERE category = 'Accessories' ORDER BY 4--
