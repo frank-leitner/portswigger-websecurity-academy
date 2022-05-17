@@ -112,7 +112,7 @@ def login(host, password):
                'username': 'administrator',
                'password': password}
     r = client.post(url, data=payload, allow_redirects=True)
-    return 'Congratulations, you solved the lab!' in r.text
+    return 'Your username is: administrator' in r.text
 
 
 if __name__ == '__main__':
@@ -140,5 +140,7 @@ if __name__ == '__main__':
         print('[ ] Try to login as administrator')
         if login(host, admin_password):
             print('[+] Login as administrator successful')
+            print('[+] Lab solved')
         else:
             print('[-] Failed to login as administrator')
+            print('[-] Failed to solve lab')

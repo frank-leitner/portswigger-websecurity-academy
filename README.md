@@ -29,7 +29,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 11 | Cross-site scripting (XSS) || 21/30 |
 | 12 | Cross-site request forgery (CSRF) | :heavy_check_mark: | 8/8 |
 | 13 | Cross-origin resource sharing (CORS) || 3/4 |
-| 14 | Clickacking || 2/5 |
+| 14 | Clickjacking || 2/5 |
 | 15 | DOM-based vulnerabilities || 0/7 |
 | 16 | WebSockets || 0/3 |
 |    | **Advanced topics** || 
