@@ -27,7 +27,7 @@ Craft some malicious HTML that
 
 ### Analysis
 
-The lab application is the already well-known blog website. The targetted functionality is an authenticated one, so I log into the account of `wiener` to have a look.
+The lab application is the already well-known blog website. The targeted functionality is an authenticated one, so I log into the account of `wiener` to have a look.
 
 The account page features a prominent `Delete account` button.
 
@@ -41,7 +41,7 @@ The requests are very similar:
 
 ![both_delete_requests](img/both_delete_requests.png)
 
-Two obvious possibilities are not possible here:
+Two obvious options are not possible here:
 
 - I cannot manipulate the form itself, otherwise, it would be easy to skip the second check by adding the `confirmed` value to the form. 
 - The CSRF token prevents me from trying to issue the `delete` requests directly in an iframe. Furthermore, the `/my-account/delete` endpoint is not accessible with GET requests so can't be directly loaded into an iframe.
@@ -50,7 +50,7 @@ So I need to convince the user to click twice. In real life, knowing common user
 
 ### Craft the malicious HTML
 
-Here in the lab, I have the information that the user clicks on anything that tells him to click. My victum user even obeys the order I tell him to click.
+Here in the lab, I have the information that the user clicks on anything that tells him to click. My victim user even obeys the order I tell him to click.
 
 So that is exactly what I'll do:
 
