@@ -1,5 +1,7 @@
 # Write-up: Username enumeration via response timing @ PortSwigger Academy
 
+![logo](img/logo.png)
+
 This write-up for the lab *Username enumeration via response timing* is part of my walk-through series for PortSwigger's Web Security Academy.
 
 Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-response-timing>  
@@ -17,7 +19,7 @@ Python script: [script.py](script.py)
 
   - enumerate a valid user
   - brute force the corresponding password
-  - log in and access account page
+  - log in and access the account page
 
 ## Enumerate username
 
@@ -49,7 +51,7 @@ The one parameter that is definitely checked for valid usernames is the password
 
 ![third intruder attempt with custom header and long password](img/use-custom-header-and-long-pw.png)
 
-Finally, some useful response:
+Finally, a useful response:
 
 ![valid username found](img/valid-username-found.png)
 
@@ -57,7 +59,7 @@ Valid username: **athena**
 
 ### Brute force password
 
-Now repeat the step for the password until the correct password ist found. Change the value of the `X-Forwarded-For` header to avoid repeating the values of the username enumeration.
+Now repeat the step for the password until the correct password is found. Change the value of the `X-Forwarded-For` header to avoid repeating the values of the username enumeration.
 
 ![enumerate password](img/enumerate-password.png)
 
@@ -72,6 +74,6 @@ Password for user: **555555**
 
 ### Login
 
-Log-in with the username and password combination (if the browser is still on lockout, intercept the request and manually add the header), or simply use Burps 'Request in browser' feature to avoid typing results in:
+Log in with the username and password combination (if the browser is still on lockout, intercept the request and manually add the header), or simply use Burps 'Request in browser' feature to avoid typing results in:
 
 ![success](img/success.png)
