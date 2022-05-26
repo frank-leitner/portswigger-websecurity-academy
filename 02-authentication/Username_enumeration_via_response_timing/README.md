@@ -1,6 +1,6 @@
 # Write-up: Username enumeration via response timing @ PortSwigger Academy
 
-This write-up for the lab *Manipulating the WebSocket handshake to exploit vulnerabilities* is part of my walk-through series for PortSwigger's Web Security Academy.
+This write-up for the lab *Username enumeration via response timing* is part of my walk-through series for PortSwigger's Web Security Academy.
 
 Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-response-timing>  
 Difficulty: PRACTITIONER  
