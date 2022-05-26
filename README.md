@@ -1,12 +1,12 @@
 # Writeup PortSwigger WebSecurity Academy
 
-This repo contains my writeups and scripts for solving the [PortSwigger WebSecurity Academy](https://portswigger.net/web-security). I plan to follow the learning path provided by PortSwigger, however I expect to skip some of the expert level labs initially.
+This repo contains my writeups and scripts for solving the [PortSwigger WebSecurity Academy](https://portswigger.net/web-security). I plan to follow the learning path provided by PortSwigger, however, I expect to skip some of the expert-level labs initially.
 
 ## Goal
 
-My ultimate goal is to obtain a level of expertise in the matter at hand to be able to pass the [Burp Suite Certified Practitioner](https://portswigger.net/web-security/certification) examination. As such, I not only want to solve the labs, but also understand why the solution works.
+My ultimate goal is to obtain a level of expertise in the matter at hand to be able to pass the [Burp Suite Certified Practitioner](https://portswigger.net/web-security/certification) examination. As such, I not only want to solve the labs but also understand why the solution works.
 
-The scripts are there to help me obtain some routine of creating such script files. Such a skill may not be that important to solve individual labs or the exam itself. But in real life scenarios the ability to quickly create proof-of-concepts for vulnerabilities is helpful. 
+The scripts are there to help me obtain some routine for creating such script files. Such a skill may not be that important to solve individual labs or the exam itself. But in real-life scenarios the ability to quickly create proofs-of-concept for vulnerabilities is helpful. 
 
 So I create the scripts to learn about python and how to use it to interact with websites. Can these scripts be used to cheat the progress in the labs? Yes, but you only cheat yourself.
 
@@ -15,7 +15,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | ID | Topic | | Status |
 | --- | --- | :---: | :---: |
 |    | **Server-side topics** ||
-| 01 | SQL inection | :heavy_check_mark: | 16/16 |
+| 01 | SQL injection | :heavy_check_mark: | 16/16 |
 | 02 | Authentication | :heavy_check_mark: | 14/14 |
 | 03 | Directory traversal | :heavy_check_mark: | 6/6 |
 | 04 | Command inection | :heavy_check_mark: | 5/5 |
@@ -31,7 +31,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 13 | Cross-origin resource sharing (CORS) || 3/4 |
 | 14 | Clickjacking | :heavy_check_mark: | 5/5 |
 | 15 | DOM-based vulnerabilities || 0/7 |
-| 16 | WebSockets || 0/3 |
+| 16 | WebSockets || 2/3 |
 |    | **Advanced topics** || 
 | 17 | Insecure deserialization || 0/10 |
 | 18 | Server-side template injection || 0/7 |
