@@ -19,6 +19,13 @@ Create an HTML/JavaScript page that uses a cross-site WebSocket hijacking attack
 - exfiltrate the chat history of the victim
 - gain access to the account of the victim
 
+Two options exist to exfiltrate the data in the lab:
+
+1. Using Burp Collaborator, which is part of the Burp Suite Professional
+2. Using the exploit server access log
+
+This walkthrough provides both solutions.
+
 ## Steps
 
 ### Analysis
@@ -90,6 +97,6 @@ After delivering the exploit to the victim, the chat contents are visible in the
 
 ### Solving the lab
 
-Whichever way was used to obtain username and password, using them I log in to the application and the lab updates to 
+Whichever way was used to obtain username and password, using them allows me to log in to the application and the lab updates to 
 
 ![success](img/success.png)
