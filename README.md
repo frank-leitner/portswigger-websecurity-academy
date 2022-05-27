@@ -31,7 +31,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 13 | Cross-origin resource sharing (CORS) || 3/4 |
 | 14 | Clickjacking | :heavy_check_mark: | 5/5 |
 | 15 | DOM-based vulnerabilities || 0/7 |
-| 16 | WebSockets || 2/3 |
+| 16 | WebSockets | :heavy_check_mark: | 3/3 |
 |    | **Advanced topics** || 
 | 17 | Insecure deserialization || 0/10 |
 | 18 | Server-side template injection || 0/7 |
