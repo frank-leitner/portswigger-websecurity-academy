@@ -6,8 +6,7 @@ This write-up for the lab *Cross-site WebSocket hijacking* is part of my walkthr
 
 Lab-Link: <https://portswigger.net/web-security/websockets/cross-site-websocket-hijacking/lab>  
 Difficulty: PRACTITIONER  
-Python script: No script available  
-The description below requires Burp Suite Professional to solve this lab!
+Python script: Currently no script available  
 
 ## Lab description
 
@@ -56,6 +55,10 @@ Once I open the page, I get my full chat history displayed:
 
 Now that I know it works, I can start exfiltrating the data.
 
+#### Option 1: Burp Collaborator
+
+As a first option, I can exfiltrate using the Burp Collaborator. This requires a Burp Suite Professional license but is very convenient. See option 2 below for the non-Burp Pro solution.
+
 ![Second script attempt](img/script_second_attempt.png)
 
 I see a lot of errors in the browser console:
@@ -74,6 +77,19 @@ The messages are out of order, but going through the requests the following conv
 
 ![Exfiltrated conversation revealing password](img/exfiltrated_conversation.png)
 
-Using both the username and password from the conversation, I log in to the application and the lab updates to 
+#### Option 2: Exploit Server Log
+
+As an alternative to Burp Suite Professional, I can also use the Access Log feature of the exploit server. For this, I need to replace the `fetch` URL with my exploit server:
+
+![Script using exploit server for exfiltration](img/script_exploit_server.png)
+
+After delivering the exploit to the victim, the chat contents are visible in the `Access log` of the exploit server:
+
+![Exfiltration using the exploit server](img/exfiltration_using_the_exploit_server.png)
+
+
+### Solving the lab
+
+Whichever way was used to obtain username and password, using them I log in to the application and the lab updates to 
 
 ![success](img/success.png)
