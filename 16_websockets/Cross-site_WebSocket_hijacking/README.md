@@ -7,7 +7,7 @@ This write-up for the lab *Cross-site WebSocket hijacking* is part of my walkthr
 Lab-Link: <https://portswigger.net/web-security/websockets/cross-site-websocket-hijacking/lab>  
 Difficulty: PRACTITIONER  
 Python script: No script available  
-Burp Suite Professional is required to solve this lab!
+The description below requires Burp Suite Professional to solve this lab!
 
 ## Lab description
 
