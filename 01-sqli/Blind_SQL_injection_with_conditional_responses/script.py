@@ -105,7 +105,7 @@ def login(host, password):
                'username': 'administrator',
                'password': password}
     r = client.post(url, data=payload, allow_redirects=True)
-    return 'Congratulations, you solved the lab!' in r.text
+    return 'Your username is: administrator' in r.text
 
 
 if __name__ == '__main__':
