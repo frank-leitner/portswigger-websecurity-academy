@@ -89,7 +89,7 @@ This will show the page, indicating that the `1=1` check was never executed. Usi
 
 --> Password is exactly 20 characters long
 
-### Enumerate the password of the administrator
+### Enumerate the password of the user administrator
 
 Now that we have the length of the password, we can brute force each character individually. If the database would store a hash of the password, we could extract the hash for offline cracking.
 

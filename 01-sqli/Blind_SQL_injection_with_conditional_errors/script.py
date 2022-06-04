@@ -140,5 +140,7 @@ if __name__ == '__main__':
         print('[ ] Try to login as administrator')
         if login(host, admin_password):
             print('[+] Login as administrator successful')
+            print('[+] Lab solved')
         else:
             print('[-] Failed to login as administrator')
+            print('[-] Failed to solve lab')
