@@ -18,9 +18,9 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    client = requests.Session()
-    client.verify = False
-    client.proxies = proxies
+    with requests.Session() as client:
+        client.verify = False
+        client.proxies = proxies
 
 
 if __name__ == "__main__":
