@@ -4,6 +4,7 @@
 # Difficulty: PRACTITIONER
 import requests
 import sys
+import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -62,6 +63,9 @@ if __name__ == "__main__":
     if num_of_columns_UNION != num_of_columns_orderBy:
         print('[-] Something fishy goes on')
 
+    # I had some issues getting the 'congratulations' banner.
+    # So wait a bit to get it
+    time.sleep(2)
     if 'Congratulations, you solved the lab!' not in requests.get(host, verify=False, proxies=proxies, allow_redirects=False).text:
         print(f'[-] Failed to solve lab')
         sys.exit(-9)
