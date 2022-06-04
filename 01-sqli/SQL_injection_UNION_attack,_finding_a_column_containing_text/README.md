@@ -1,4 +1,4 @@
-# Write-up: SQL injection UNION attack, finding a column containing text
+# Write-up: SQL injection UNION attack, finding a column containing text @ PortSwigger Academy
 
 ![logo](img/logo.png)
 
@@ -11,8 +11,7 @@ Python script (manual payload): [script_manual.py](script_manual.py)
 
 ## Lab description
 
-- vulnerable to SQL injection in the product category filter
-- UNION based vulnerability
+![lab_description](img/lab_description.png)
 
 ###  Goal
 
@@ -20,7 +19,7 @@ Find columns containing string data with a UNION attack by returning a provided 
 
 ## Query
 
-The query might be something like
+The query used in the lab will look something like
 
 ```sql
 SELECT * FROM someTable WHERE category = '<CATEGORY>'
@@ -32,13 +31,13 @@ SELECT * FROM someTable WHERE category = '<CATEGORY>'
 
 The first steps are identical to the lab [SQL injection UNION attack, determining the number of columns returned by the query](../SQL_injection_UNION_attack,_determining_the_number_of_columns_returned_by_the_query/README.md) and are not repeated here.
 
-The number of columns in the result is 3 as well.
+As a result of these steps, I found out that the number of columns in the result is 3.
 
 ### Finding text columns
 
 In a UNION, both queries must match the number of columns as well as the data types of each column.
 
-The `null` fields match any data types. By successively exchanging a single null with a string, e.g. 'x', we can find out which columns contain string data.
+The `null` fields match any data types. By successively exchanging a single null with a string, e.g. 'x', I can find out which columns contain string data.
 
 By adding a `' UNION (SELECT null, 'x', null)--` to the query, the SQL statement looks like this and results in an 'x' added in the table.
 
@@ -54,6 +53,6 @@ Injecting the requested string will solve the exercise:
 
 ### Bonus
 
-By playing around a bit, we find out that the first argument is a number and represents the product ID that is placed in the 'View details' link and the thirst argument is the price by injecting `'` UNION (SELECT 1, 'aP6tWl', 33.33)--`
+By playing around a bit, I find out that the first argument is a number and represents the product ID that is placed in the 'View details' link and the thirst argument is the price by injecting `'` UNION (SELECT 1, 'aP6tWl', 33.33)--`
 
 ![other columns](img/other_columns.png)
