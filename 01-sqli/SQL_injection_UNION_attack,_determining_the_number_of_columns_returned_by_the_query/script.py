@@ -4,6 +4,7 @@
 # Difficulty: PRACTITIONER
 import requests
 import sys
+import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -37,6 +38,7 @@ def exploit_UNION(host):
 
 
 if __name__ == "__main__":
+    print('[+] SQL injection UNION attack, determining the number of columns returned by the query')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -51,12 +53,21 @@ if __name__ == "__main__":
     else:
         print('[-] ORDER BY injection not successful')
 
-    print('[ ] Count columns with UNION SELECT')
     num_of_columns_UNION = exploit_UNION(host)
+    print(f'[+] Found {num_of_columns_UNION} columns')
     if num_of_columns_UNION:
-        print(f'[+] UNION SELECT injection successful, found {num_of_columns_UNION} columns')
+        print(f'[+] UNION SELECT injection successful')
     else:
         print('[-] UNION SELECT injection not successful')
 
     if num_of_columns_UNION != num_of_columns_orderBy:
         print('[-] Something fishy goes on')
+
+    # I had some issues getting the 'congratulations' banner.
+    # So wait a bit to get it
+    time.sleep(2)
+    if 'Congratulations, you solved the lab!' not in requests.get(host, verify=False, proxies=proxies, allow_redirects=False).text:
+        print(f'[-] Failed to solve lab')
+        sys.exit(-9)
+
+    print(f'[+] Lab solved')

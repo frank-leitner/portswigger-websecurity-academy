@@ -74,7 +74,7 @@ def get_admin_password(length):
     # For full ASCII range use this. The lab only uses numbers and lower characters, so the latter version is simply faster
     # chars = range(32, 127)
     chars = [x for x in range(48, 58)] + [x for x in range(97, 123)]
-    print(f'[ ] Enumerating administrator password. This takes {length*len(chars)} requests, so might take a while')
+    print(f'[ ] Enumerating administrator password. This takes {length*len(chars)} requests, so it might take a while')
     sys.stdout.write('\r[ ] Current extraction status: ')
     sys.stdout.flush()
     for i in range(1, length + 1):

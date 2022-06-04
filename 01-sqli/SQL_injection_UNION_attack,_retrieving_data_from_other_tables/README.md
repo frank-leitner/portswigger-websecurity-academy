@@ -1,21 +1,20 @@
-# Lab: SQL injection UNION attack, retrieving data from other tables
+# Write-up: SQL injection UNION attack, retrieving data from other tables @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *SQL injection UNION attack, retrieving data from other tables* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
 Lab-Link: <https://portswigger.net/web-security/sql-injection/union-attacks/lab-retrieve-data-from-other-tables>  
 Difficulty: PRACTITIONER  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- vulnerable to SQL injection in the product category filter
-- UNION based vulnerability
-- database contains `users` table containing columns `username` and `password`.
-- Goals:
-  - Retrieve all usernames and passwords
-  - Log in as `administrator`
+![lab_description](img/lab_description.png)
 
 ## Query
 
-The query might be something like
+The query used in the lab will look something like
 
 ```sql
 SELECT * FROM someTable WHERE category = '<CATEGORY>'
@@ -25,23 +24,24 @@ SELECT * FROM someTable WHERE category = '<CATEGORY>'
 
 ### Confirm injectable argument
 
-The first steps are identical with the labs [SQL injection UNION attack, determining the number of columns returned by the query](../SQL_injection_UNION_attack,_determining_the_number_of_columns_returned_by_the_query/README.md) and [SQL injection UNION attack, finding a column containing text](../SQL_injection_UNION_attack,_finding_a_column_containing_text/README.md) and are not repeated here.
+The first steps are identical to the labs [SQL injection UNION attack, determining the number of columns returned by the query](../SQL_injection_UNION_attack,_determining_the_number_of_columns_returned_by_the_query/README.md) and [SQL injection UNION attack, finding a column containing text](../SQL_injection_UNION_attack,_finding_a_column_containing_text/README.md) and are not repeated here.
 
-The number of colums in the result is 2, with both being text columns.
+As a result of these steps, I find out that the number of columns is 2, with both being string columns.
 
 ### Extracting usernames and passwords
 
-We know which table (`users`) contains the credentials (columns `username` and `password`). And conveniently we have two string columns, so we can simply dump the contents.
+I know which table (`users`) contains the credentials (columns `username` and `password`). And conveniently we have two string columns, so we can simply dump the contents with a UNION.
+
+I use an invalid category so that no articles are found and only my output appears. The injection string is `X' UNION (SELECT username, password FROM users)--` to form the following query:
 
 ```sql
-SELECT * FROM someTable WHERE category = 'Gifts' UNION (SELECT username, password password FROM users)--
+SELECT * FROM someTable WHERE category = 'X' UNION (SELECT username, password FROM users)--
 ```
 
-Resulting in these three user credentials:
+This results in a dump of three user credentials:
 
-![creds](img/creds_first_set.png)
-![creds](img/creds_second_set.png)
+![credentials](img/credentials.png)
 
-Now log in as administrator and:
+The last step is to log in as the administrator and the lab updates to
 
 ![success](img/success.png)

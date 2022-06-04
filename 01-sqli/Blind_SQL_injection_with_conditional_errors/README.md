@@ -1,8 +1,8 @@
-# Write-up: Blind SQL injection with conditional errors
+# Write-up: Blind SQL injection with conditional errors @ PortSwigger Academy
 
 ![logo](img/logo.png)
 
-This write-up for the lab *Blind SQL injection with conditional errors* is part of my walk-through series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+This write-up for the lab *Blind SQL injection with conditional errors* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
 Lab-Link: <https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors>  
 Difficulty: PRACTITIONER  
@@ -10,18 +10,11 @@ Python script: [script.py](script.py)
 
 ## Lab description
 
-- vulnerable to blind SQL injection
-- parameter: the value of tracking cookie
-- Result: No visible difference in the page, but returns message on database error
-- The database contains table 'users' with columns 'username' and 'password'
-
-### Goal
-
-Login as user 'administrator'
+![lab_description](img/lab_description.png)
 
 ## Query
 
-The query will look something like
+The query used in the lab will look something like
 
 ```sql
 SELECT trackingId FROM someTable WHERE trackingId = '<COOKIE-VALUE>'
@@ -64,7 +57,7 @@ The `error` case has a condition that evaluates to true, thus causing the databa
 
 ### Confirm database table and columns
 
-The next step is to confirm that the users table actually exists in the database. For this, I select from it and use the oracle version of limiting the number of output rows:
+The next step is to confirm that the `users` table actually exists in the database. For this, I select from it and use the oracle version of limiting the number of output rows:
 
 `'||(SELECT username||password FROM users WHERE rownum=1)||'`
 
@@ -74,13 +67,13 @@ Just to be on the safe side, confirmed that invalid names in either of the field
 
 ### Confirm user exists in the database
 
-To confirm that the user exists in the database it is unfortunately not possible to inject a simple `'||(select username from users where username='administrator')||'`. This is a valid statement regardless of the existance of the user. As such, it shows the page regardless of the username used.
+To confirm that the user exists in the database it is unfortunately not possible to inject a simple `'||(select username from users where username='administrator')||'`. This is a valid statement regardless of the existence of the user. As such, it shows the page regardless of the username used.
 
 To cause an error, we extend the example by performing the division by zero if the username exists. This statement results in an `internal server error`, indicating that the query resulted in the division by zero:
 
 `'||(SELECT CASE WHEN (1=1) THEN to_char(1/0) ELSE NULL END FROM users WHERE username='administrator')||'`
 
-Changing the username to an arbitrary value, the page is shown. This confirms that the condition `1=1` and the following division by zero depends on whether the `FROM users WHERE...` part returns something.
+Changing the username to an arbitrary value, the page is shown. This confirms that the condition `1=1` and the following division by zero depend on whether the `FROM users WHERE...` part returns something.
 
 This confirms that the user `administrator` exists in the database.
 
@@ -126,5 +119,7 @@ For the length, the string is shown in this picture:
 ![Condition in a different location](img/condition_different_location.png)
 
 ## Try login
+
+With the credentials obtained I log in and the lab updates to
 
 ![Login successful](img/Win.png)
