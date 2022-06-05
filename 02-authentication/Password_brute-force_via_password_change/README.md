@@ -1,32 +1,36 @@
-# Lab: Password brute-force via password change
+# Write-up: Password brute-force via password change @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Password brute-force via password change* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+Learning path: Server-side topics → Authentication
 
 Lab-Link: <https://portswigger.net/web-security/authentication/other-mechanisms/lab-password-brute-force-via-password-change>  
 Difficulty: PRACTITIONER  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Change password functionality vulnerable to brute force
-- Known good user credentials `wiener:peter`
-- Goals:
-  - Brute force the password of user `carlos`
-  - Access his account page
+![lab_description](img/lab_description.png)
+
+Clickable link for [Candidate passwords](https://portswigger.net/web-security/authentication/auth-lab-passwords)
 
 ## Steps
 
-### Analyse password change
+### Analyze password change
 
-As usual, the first step is to analyse the password change functionality with the known account. Login as `wiener` and change the password.
+As usual, the first step is to analyze the functionality of the lab, in this case, the password change feature. I log in as `wiener` with the known credentials and change the password.
 
 The form contains a hidden field for the username:
 
 ![hidden_input](img/hidden_input.png)
 
-Ideally, the page should limit the password change to the session of the current user. But in this case the explicit inclusion of the username in the form would be pointless. Therefore I guess that the username is taken from the input provided.
+Ideally, the web application should limit the password change to the session of the current user. But if this would be the case, the explicit inclusion of the username in the form would be redundant. Therefore I guess that the username may be taken from this client-side input.
 
 ### Brute force current password, naive attempt
 
-So send the request to Burp Intruder:
+I send the request to Burp Intruder:
 
 ![request payload](img/request_payload.png)
 
@@ -37,21 +41,23 @@ The response to all requests looks identical:
 
 ![response](img/response.png)
 
-When I changed the password for my own account, the result was a `200 OK`. My first guess is that after the current password is wrong during the password change, the system invalidates the current session. Try it out by changing the password of `wiener`, but provide an incorrect current password. Sure enough, I receive a 302 to the login page and lost my session.
+When I changed the password for my own account, the result was a `200 OK`. My first guess is that after the current password is wrong during the password change, the system invalidates the current session. I try it out by changing the password of `wiener` but provide an incorrect current password. 
+
+Sure enough, I receive a 302 to the login page and lost my session.
 
 ### Brute force current password, take 2
 
-So before every password change attempt, login as wiener to provide a valid session and use it for one password guess.
+So before every password change attempt, I log in as `wiener` to provide a valid session and use it for one password guess.
 
-Create a macro that repeats the login and use it as session rule. Ensure that the scope definition is correct of the session handling rule (e.g. by using `Include all URLs`)
+To avoid that I have to do it manually all the time I create a macro that repeats the login and use it as a session rule. To be sure that the rule is applied I select `Include all ` URLs` as the session handling rule.
 
 ![macro](img/macro.png)
 
-Repeat the naive attempt. This time, the result is very much different:
+Now I repeat the naive attempt. This time, the result is very much different:
 
 ![password_changed](img/password_changed.png)
 
-What is left is logging in with `carlos:password` to get:
+All that is left is logging in with `carlos:password` to get:
 
 ![success](img/success.png)
 
