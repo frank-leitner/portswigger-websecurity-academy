@@ -4,6 +4,8 @@
 
 This write-up for the lab *Username enumeration via different responses* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
+Learning path: Server-side topics → Authentication
+
 Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-different-responses>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
@@ -14,7 +16,9 @@ Python script: [script.py](script.py)
 
 Clickable links for [Candidate usernames](https://portswigger.net/web-security/authentication/auth-lab-usernames) and [Candidate passwords](https://portswigger.net/web-security/authentication/auth-lab-passwords)
 
-## Enumerate username
+## Steps
+
+### Enumerate username
 
 As a first step, I go to the page and try to log in with some random username and password. The response I receive is quite chatty about the error reason:
 
