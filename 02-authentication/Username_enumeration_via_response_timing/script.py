@@ -7,7 +7,6 @@ import random
 import requests
 import shutil
 import sys
-import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
@@ -85,7 +84,7 @@ def main():
         print(f'[-] Failed to enumerate password')
         sys.exit(-3)
 
-    if 'Your username is:' not in client.get(f'{host}/my-account').text:
+    if f'Your username is: {username}' not in client.get(f'{host}/my-account').text:
         print(f'[-] Failed to solve lab')
         sys.exit(-9)
 
