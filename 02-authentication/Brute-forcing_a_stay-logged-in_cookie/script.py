@@ -20,6 +20,7 @@ def get_cookie_value(password):
 
 
 def main():
+    print('[+] Lab: Brute-forcing a stay-logged-in cookie')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
