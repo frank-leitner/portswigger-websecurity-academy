@@ -12,11 +12,10 @@ Python script: [script.py](script.py)
 
 ## Lab description
 
-- 
-
-### Goals
-
-- 
+lab_description 
 
 ## Steps
 
+As usual, the first step is to analyze the functionality of the lab application, in this case, the XXX
+
+success
