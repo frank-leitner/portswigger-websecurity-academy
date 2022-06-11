@@ -1,30 +1,33 @@
-# Lab: 2FA simple bypass
+# Write-up: 2FA simple bypass @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *2FA simple bypass* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+Learning path: Server-side topics → Authentication
 
 Lab-Link: <https://portswigger.net/web-security/authentication/multi-factor/lab-2fa-simple-bypass>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Vulnerable login, 2FA can be bypassed
-- Known good valid credentials for both own (`wiener:peter`) and victim (`carlos:montoya`) account
-- 2FA is email based, access to 2FA emails for account `wiener` is provided
-- No access to victims 2FA
-- Goals:
-  - Access user account page of `carlos`
+![lab_description](img/lab_description.png)
+
+Clickable links for [Candidate usernames](https://portswigger.net/web-security/authentication/auth-lab-usernames) and [Candidate passwords](https://portswigger.net/web-security/authentication/auth-lab-passwords)
 
 ## Steps
 
-## Login as wiener
+### Login as wiener
 
-As usual, open the page and login with the own account `wiener`. Notice the button `Email client` on top of the page. When asked for the 4-digit security code, enter the provided email client to retrieve it:
+As usual, I open the application and log in with the account `wiener`. On the top of the screen is a button `Email client`. When asked for the 4-digit security code, use the provided email client to retrieve it:
 
-![login_as_wiener(img/login_as_wiener.png)
+![login_as_wiener](img/login_as_wiener.png)
 
-## Login as carlos
+### Login as carlos
 
-Trying to login as `carlos`, we do not have access to his email client so can not retrieve the 2FA code. What happens if I manually request the `my-account` page after the first step of authentication?
+Now I try to log in as `carlos`. As I do not have access to his email client, I can not retrieve the 2FA code. What happens if I, instead of trying to find the 2FA code, manually change the URL and request the `my-account` page after the first step of authentication?
 
-Obviously, the login operation is already performed after the first step of the 2FA authentication. Entering a wrong code obviously triggers a logout. Manually bypassing it instead and directly accessing the known account page URL after the first step is enough to use this valid session.
+Obviously, the login operation is already performed after the first step of the 2FA authentication. Entering a wrong code triggers a logout. Manually bypassing it instead and directly accessing the known account page URL after the first step is enough to use this valid session.
 
 ![success](img/success.png)

@@ -1,33 +1,39 @@
-# Lab: Username enumeration via subtly different responses
+# Write-up: Username enumeration via subtly different responses @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Username enumeration via subtly different responses* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+Learning path: Server-side topics → Authentication
 
 Lab-Link: <https://portswigger.net/web-security/authentication/password-based/lab-username-enumeration-via-subtly-different-responses>  
 Difficulty: PRACTITIONER  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Login mechanism vulnerable to brute force
-- Slight differences in responses
-- Lists of possible usernames and passwords are provided
-- Goals:
-  - enumerate a valid user
-  - brute force the corresponding password
-  - login and access account page
+![lab_description](img/lab_description.png)
 
-## Enumerate username
+Clickable links for [Candidate usernames](https://portswigger.net/web-security/authentication/auth-lab-usernames) and [Candidate passwords](https://portswigger.net/web-security/authentication/auth-lab-passwords)
 
-As a first step, go to the page and try to login with some random username and password. This time, the error message is rather generic:
+## Steps
 
-![generic error message](img/generic_error_message.png)
+### Enumerate username
 
-But perhaps the error message is hardcoded in two places, and on one there is a slight typo? Load the page in Burp Intruder, with the username as only payload.
+As usual, the first step is to analyze the functionality of the lab, in this case, the login functionality, and try to log in with some random username and password. This time, the error message is rather generic:
+
+![A generic error message](img/generic_error_message.png)
+
+In general, this is good practice for any type of login functionality. But it relies on the fact that the error message is 100% identical in all cases. If it is hardcoded in multiple places, then there is the risk that there are minor differences. Might be a simple typo, some punctuation, or even just extra spaces.
+
+ I load the page in Burp Intruder, with the username as the only payload.
 
 - Attack type: *Sniper*
 - Payload: *provided username list*
 
-After running the enumeration, we need to find the valid usernames. The page shows `Invalid username or password.`. Lets use this exact string as negative filter and see if if there is a different message found.
+After running the enumeration, I need to find if there are any deviations in the responses. When I logged in with a random username, the page showed `Invalid username or password.`. I use a negative search filter to see if any responses do not match this:
 
-![subtle difference in error message](img/subtle_differences.png)
+![A subtle difference in the error message](img/subtle_differences.png)
 
 And indeed, in one case the error message misses the full stop at the end.
 
@@ -35,17 +41,17 @@ Username found: **apps**
 
 ### Brute force password
 
-Now repeat the step for the password until the correct password ist found
+Now I repeat the step, this time for the password argument until the correct password is found.
 
 - Attack type: *Sniper*
 - Payload: *provided password list*
 
 ![Burp Intruder password found](img/password_found.png)
 
-On a successful login, the page redirects, so remove all responses with 2xx status codes (alternative, filter for responses not containing 'Invalid username or password'
+On successful login, the page redirects, so I remove all responses with 2xx status codes (alternative, filter for responses not containing 'Invalid username or password'
 
 ### Login
 
-Login with the username and password combination, or simply use Burps 'Request in browser' feature to avoid typing results in:
+Lastly, I log in with the username and password combination, or simply use Burps 'Request in browser' feature to avoid typing results in and the lab updates to:
 
 ![success](img/success.png)

