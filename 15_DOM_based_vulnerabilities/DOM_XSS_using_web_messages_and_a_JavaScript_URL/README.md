@@ -4,7 +4,7 @@
 
 This write-up for the lab *DOM XSS using web messages and a JavaScript URL* is part of my walk-through series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
-Learning path: Server/Client-side/Advanced topics → XZY
+Learning path: Client-side → DOM-based vulnerabilities
 
 Lab-Link: <https://portswigger.net/web-security/dom-based/controlling-the-web-message-source/lab-dom-xss-using-web-messages-and-a-javascript-url>  
 Difficulty: PRACTITIONER  
