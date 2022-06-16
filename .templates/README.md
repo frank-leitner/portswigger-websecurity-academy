@@ -16,6 +16,12 @@ lab_description
 
 ## Steps
 
+### Analysis
+
 As usual, the first step is to analyze the functionality of the lab application, in this case, the XXX
 
+### The theory
+
 success
+
+If you found this article helpful, please give it a clap. To get notified of more write-ups, follow me on [github](https://github.com/frank-leitner) or [medium.com](https://medium.com/@frank.leitner).
