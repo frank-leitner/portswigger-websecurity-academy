@@ -18,7 +18,7 @@ Python script: [script.py](script.py)
 
 ### Analysis
 
-As usual, the first step is to analyze the functionality of the lab application, in this case, a blog website After I browse through the page, I go check the HTML sources. One interesting piece of HTML can be found:
+As usual, the first step is to analyze the functionality of the lab application, in this case, a blog website. After I browse through the page, I go check the HTML sources. One interesting piece of HTML can be found:
 
 ![vulnerable_source](img/vulnerable_source.png)
 
