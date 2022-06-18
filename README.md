@@ -26,7 +26,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 09 | Server-side request forgery (SSRF) | :heavy_check_mark: | 7/7 |
 | 10 | XXE injection | :heavy_check_mark: | 9/9 |
 |    | **Client-side topics** ||
-| 11 | Cross-site scripting (XSS) || 21/30 |
+| 11 | Cross-site scripting (XSS) || 22/30 |
 | 12 | Cross-site request forgery (CSRF) | :heavy_check_mark: | 8/8 |
 | 13 | Cross-origin resource sharing (CORS) || 3/4 |
 | 14 | Clickjacking | :heavy_check_mark: | 5/5 |
