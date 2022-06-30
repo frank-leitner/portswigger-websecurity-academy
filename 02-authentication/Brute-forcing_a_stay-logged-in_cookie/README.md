@@ -40,23 +40,49 @@ And indeed, the second part is an md5 hash of the password
 
 ### Brute force the cookie
 
-I send the request of the account page to Burp Intruder, setting the `stay-logged-in` cookie as the payload
+I send the request for the account page to Burp Intruder, setting the `stay-logged-in` cookie as the payload
 
 - Attack type: **Sniper**
 - Payload: ![brute_force](img/brute_force.png)
 
 For each of the passwords, I hash it, add the username in front and base64-encode everything. I also set on the options page a matching rule to quickly see if I am logged in as user `carlos`:
 
-![matching rule](img/matching_rule.png)
+![](img/matching_rule.png)
 
 And sure enough, ordering after this rule just has a single hit and the lab updates:
 
 ![brute_force_result](img/brute_force_result.png)
 
-### Brute force the password
+### Brute force the password from the known hash
 
-As the hash is not salted (does not contain any random part) it becomes easy to get the password with the help of [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table). As the candidate password file is rather short, the password brute force can be done quickly without them though:
+Being able to log into a session of the victim is well and good, but I also want to know the actual password. In the Burp Intruder run above I could not find a way to display the raw payload value that was used, just the final payload after all the payload processing was performed.
+
+To obtain the password, I send the cookie value to Decoder and decode it with base64:
+
+![decoded_cookie](img/decoded_cookie.png)
+
+As the hash is not salted (it does not contain any random unique part) it becomes easy to get the password with the help of [rainbow tables](https://en.wikipedia.org/wiki/Rainbow_table). 
+
+But here, the candidate password file is rather short. This makes a password brute force very quick without them:
 
 ![password_of_carlos](img/password_of_carlos.png)
 
+Here, I read the candidate_passwords.txt file line by line, calculate the md5sum of its content and check if it matches the now known hash.
+
 And yes, I know that this approach is very bad in real life as it calculates every single hash before it does the grep, but it was the fastest to type that came into mind :)
+
+### Improvement: Know the actual password straight away
+
+As an improvement, I added a second payload to Intruder. The first one, the actual cookie, I set up identical as above. 
+
+For the second one, I use the same list but don't perform any hashing. I add this inside the `User-Agent` header. To ensure that it does not break if a password candidate contains any characters that are illegal in the header I use a payload processing tule to URL-encode it:
+
+![improved_intruder_attack](img/improved_intruder_attack.png)
+
+![improved_attack_second_payload](img/improved_attack_second_payload.png)
+
+Running the attack yields a much nicer result:
+
+![better_result](img/better_result.png)
+
+I see the password directly in the Intruder result list (it was a different session so the password differs from the one above). Even if the password would have contained characters that got URL-encoded it would be trivial to decode it.
