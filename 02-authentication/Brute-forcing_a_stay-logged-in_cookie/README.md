@@ -75,7 +75,7 @@ And yes, I know that this approach is very bad in real life as it calculates eve
 
 As an improvement, I added a second payload to Intruder. The first one, the actual cookie, I set up identical as above. 
 
-For the second one, I use the same list but don't perform any hashing. I add this inside the `User-Agent` header. To ensure that it does not break if a password candidate contains any characters that are illegal in the header I use a payload processing tule to URL-encode it:
+For the second one, I use the same list but don't perform any hashing. I add this inside the `User-Agent` header. To ensure that it does not break if a password candidate contains any characters that are illegal in the header I use a payload processing rule to URL-encode it:
 
 ![improved_intruder_attack](img/improved_intruder_attack.png)
 
