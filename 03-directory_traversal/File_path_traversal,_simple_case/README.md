@@ -1,20 +1,25 @@
-# Lab: File path traversal, simple case
+# Write-up: File path traversal, simple case @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *File path traversal, simple case* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Server-side topics → Directory traversal
 
 Lab-Link: <https://portswigger.net/web-security/file-path-traversal/lab-simple>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
 
-- File path traversal vulnerability in display of product images
-- Goals:
-  - Retrieve contents of /etc/passwd
+## Lab description
+
+![lab_description](img/lab_description.png)
 
 ## Steps
 
 ### Analysis
 
-As usual, the first step is to check how the website works. It is some shop website with a few rather interesting products. I recommend actually reading the product descriptions. It does not help at all with the lab, but PortSwigger put in the effort to write interesting texts so the least we can do is actually reading them.
+As usual, the first step is to check how the website works. It is a shop website with a few rather interesting products. I recommend reading the product descriptions. It does not help at all with the lab, but PortSwigger put in the effort to write interesting texts so the least we can do is read them.
 
 ![page_overview](img/page_overview.png)
 
@@ -26,7 +31,7 @@ Calling this URL directly in the browser (e.g. `https://ac301f701f93c15d803e3c72
 
 ### Injecting more interesting file names
 
-To make it easier, lets send the request to Burp Repeater. If you don't see it in the `HTTP history`, check if images are filtered out in the filter bar (by default it is hidden):
+To make it easier, I send the request to Burp Repeater. If you don't see it in the `HTTP history`, check if images are filtered out in the filter bar (by default it is hidden):
 
 ![adjust_filter](img/adjust_filter.png)
 
