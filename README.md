@@ -33,7 +33,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 15 | DOM-based vulnerabilities || 5/7 |
 | 16 | WebSockets | :heavy_check_mark: | 3/3 |
 |    | **Advanced topics** || 
-| 17 | Insecure deserialization || 5/10 |
+| 17 | Insecure deserialization || 6/10 |
 | 18 | Server-side template injection || 0/7 |
 | 19 | Web cache poisoning || 0/13 |
 | 20 | HTTP Host header attacks || 0/6 |
