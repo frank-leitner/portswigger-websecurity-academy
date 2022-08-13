@@ -1,40 +1,44 @@
-# Lab: Inconsistent handling of exceptional input
+# Write-up: Inconsistent handling of exceptional input @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Inconsistent handling of exceptional input* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Server-side topics → Business logic vulnerabilities
 
 Lab-Link: <https://portswigger.net/web-security/logic-flaws/examples/lab-logic-flaws-inconsistent-handling-of-exceptional-input>  
 Difficulty: PRACTITIONER  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Input validation not done properly for the account registration process
-- Administrative functionality can be obtained
-- Goals:
-  - Access admin panel
-  - Delete user carlos
+![Lab description](img/lab_description.png)
 
 ## Steps
 
 ### Analysis
 
-As usual, the first step is to browse the application. It is the usual shop website as in the previous labs. This time, no known good credentials are provided but a possibility to register an own user.
+As usual, the first step is to browse the application, which is a shop website. In this lab, no known good credentials are provided. There is, however, a possibility to register an own user, which I do. I use the email address from the email client of the lab:
 
 ![user_registration](img/user_registration.png)
 
-So just try it out. The application refers to the registration link sent by email
+Once I register, I receive an email with a link to complete the registration:
 
 ![registration_email](img/registration_email.png)
 
-After logging in with the chosen credentials, I'm in my own account:
+Once done, I can log in to my account:
 
 ![own_account](img/own_account.png)
 
-Let's have a look in Burp how the communication went. Unfortunately, nothing noteworthy showed up. 
+I have a look in Burp at how the communication went, but nothing interesting showed up.
 
 So far, the only interesting item is the comment on the registration page about a @dontwannacry.com email address. Unfortunately, I don't have access to that domain, so can not use it directly. But perhaps I can inject this in a way that the registration link is sent to me, but the application thinks I'm a dontwannacry user.
 
+---
+
 ### Attempt 1: Inject a null byte
 
-There are numerous ways of trying to inject strings that systems may interpret differently. The easiest to check is by injecting a null byte which is used in several environments as 'end-of-string' indicator. If the registration system takes the full string, it will register me as a dontwannacry user. If the email system terminates the string at a null byte, I'll receive the email.
+There are numerous ways of trying to inject strings that systems may interpret differently. The easiest to check is by injecting a null byte which is used in several environments as 'end-of-string' indicator. If the registration system takes the full string, it may register me as a dontwannacry user. If the email system on the other hand terminates the string at a null byte, I'll receive the email.
 
 ![inject_null_byte](img/inject_null_byte.png)
 
@@ -46,34 +50,50 @@ Alas, the system does not allow this:
 
 ![null_byte_rejected](img/null_byte_rejected.png)
 
+---
+
 ### Attempt 2: Use a long string
 
-Another common issue is different systems using different lengths for the same string. If I can use a string that the web application views as dontwannacry email and the mail server views it as my email, than I'll get the confirmation email.
+Another common issue is different systems using different lengths for the same string. If I can use a string that the web application considers as dontwannacry email while the mail server at the same time uses the full string then I'll get the confirmation email.
 
-But first I need to find out if there might be a truncation anywhere. So I generate a long string of unique patterns (so in case there is a noticable mismatch I'll be able to find the position). Easiest way to do so is with msf-pattern_create from the Metasploit Framework:
+But first I need to find out if there might be a truncation anywhere. So I generate a long string of unique patterns (so in case there is a noticeable mismatch I'll be able to find the position). The easiest way to do so is with msf-pattern_create from the Metasploit Framework:
 
 ![long_pattern](img/long_pattern.png)
 
-Using this address by adding @exploit-ac431f7a1f9f0ce9804075ea01a6006b.web-security-academy.net, I receive a registration confirmation notification and email. After confirming the registration and logging into the account, the account page shows my email as:
+Using this string as email-address by adding @exploit-ac431f7a1f9f0ce9804075ea01a6006b.web-security-academy.net, I receive a registration confirmation notification and email. After confirming the registration and logging into the account, the account page shows my email as:
 
 ![truncated_email](img/truncated_email.png)
 
-Again using Metasploit framework and the script msf-pattern_offset, it is easy to find at which character the truncation happened:
+This proves that the two systems consider the email value differently.
+
+It is easy to find at which character the truncation happened with the script msf-pattern_offset provided my the Metasploit framework: 
 
 ![truncated_position](img/truncated_position.png)
 
-This 4 character pattern starts at position 251, therefore the first 255 characters are recognized by the application to see as account email.
+This 4-character pattern starts at position 251, therefore the first 255 characters are recognized by the application to see as account email.
 
-The string `@dontwannacry.com` is 17 characters long. So I need a 238 characters long prefix, followed by that domain, followed by my attacker server.
+---
+
+### The exploit
+
+The string `@dontwannacry.com` is 17 characters long. So I need a 238-character long prefix, followed by that domain, followed by my attacker server.
 
 ![generate_long_string](img/generate_long_string.png)
 
-Sure enough, using this string as email, I get a confirmation email. After logging in and going to the account website, it shows an additional link in the page header - an admin panel.
+This ensures that the email shop application reads my email as a `@dontwannacry.com` user, whereas the email system sends the registration email to my real account.
+
+Sure enough, using this string as the email address, I receive the confirmation email. After logging in and going to the account website, it shows an additional link in the page header - an admin panel.
 
 ![registered_as_correct_user](img/registered_as_correct_user.png)
 
+In the admin panel I see the list of all users together with the links to delete them:
+
 ![admin_panel](img/admin_panel.png)
 
-After deleting the user `carlos`, the lab page updates to:
+After deleting the user `carlos`, the application provides the confirmation:
 
-![success](img/success.png)
+![confirmation](img/confirmation.png)
+
+At the same time, the lab updates to
+
+![Lab solved](img/success.png)
