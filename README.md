@@ -39,6 +39,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 20 | HTTP Host header attacks || 0/6 |
 | 21 | HTTP request smuggling || 0/12 |
 | 22 | OAuth authentication || 0/6 |
+| 23 | JWT attacks || 1/8 |
 
 ## Tooling
 

@@ -4,7 +4,7 @@
 
 This write-up for the lab *<LAB_NAME>* is part of my walk-through series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
 
-Learning path: Server/Client-side/Advanced topics → XZY
+**Learning path**: Server/Client-side/Advanced topics → XZY
 
 Lab-Link: <<LAB_LINK>>  
 Difficulty: <LAB_LEVEL>  
@@ -12,18 +12,18 @@ Python script: [script.py](script.py)
 
 ## Lab description
 
-lab_description 
+lab_description
+![Lab description](img/lab_description.png)
 
 ## Steps
 
 ### Analysis
 
-As usual, the first step is to analyze the functionality of the lab application, in this case, the XXX
+As usual, the first step is to analyze the functionality of the lab application. In this lab, it is XXX
 
 ### The theory
 
+### The malicious payload
+
 success
-
----
-
-If you found this article helpful, please give it a clap. To get notified of more write-ups, follow me on [GitHub](https://github.com/frank-leitner) or [medium](https://medium.com/@frank.leitner).
+![Lab solved](img/success.png)
