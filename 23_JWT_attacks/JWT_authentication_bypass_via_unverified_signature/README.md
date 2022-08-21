@@ -70,7 +70,7 @@ I don't want to change the user claim manually for all requests, so I copy the m
 
 An alternative would be to use Burp "Match and Replace" functionality to replace the cookie, or even the specific claim, on the fly for all requests. However, just changing the cookie in the browser is much simpler.
 
-Then I click on the `Admin panel` link and are presented with the user management page:
+Then I click on the `Admin panel` link and am presented with the user management page:
 
 ![Access to user management](img/user_management.png)
 
