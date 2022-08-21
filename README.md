@@ -36,7 +36,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 17 | Insecure deserialization || 6/10 |
 | 18 | Server-side template injection || 0/7 |
 | 19 | Web cache poisoning || 0/13 |
-| 20 | HTTP Host header attacks || 0/6 |
+| 20 | HTTP Host header attacks || 1/6 |
 | 21 | HTTP request smuggling || 0/12 |
 | 22 | OAuth authentication || 0/6 |
 | 23 | JWT attacks || 2/8 |
