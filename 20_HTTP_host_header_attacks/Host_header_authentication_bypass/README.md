@@ -30,6 +30,8 @@ What is noteworthy here is that this only shows with a valid `_lab` cookie, so w
 
 ![Discovery with ffuf](img/discovery_with_ffuf.png)
 
+---
+
 ### The theory
 
 One way for a web application to take a guess where the visitor comes from is the `Host` header. Normal browsers always keep it in sync with the target of the connection, so it is not possible to send the request to one host but have another value in the host header.
@@ -44,11 +46,18 @@ Sure enough, when using `localhost` as `Host` header, the request succeeds:
 
 ![](img/localhost_header.png)
 
+---
+
 ### The malicious payload
 
 To improve the usability I add a rule to always replace the host header with localhost in the proxy options:
 
 ![](img/match_replace.png)
 
-success
+After I reload the page, the user management page awaits me:
+
+![](img/user_management.png)
+
+After clicking on the link to delete `carlos`, the lab updates to
+
 ![Lab solved](img/success.png)
