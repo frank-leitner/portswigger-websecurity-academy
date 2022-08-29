@@ -4,6 +4,7 @@
 # Difficulty: <LAB_LEVEL>
 import requests
 import sys
+import time
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
@@ -21,6 +22,14 @@ def main():
     with requests.Session() as client:
         client.verify = False
         client.proxies = proxies
+
+        # I had some times issues getting the proper result, so wait briefly before checking
+        time.sleep(2)
+        if 'Congratulations, you solved the lab!' not in client.get(f'{host}').text:
+            print(f'[-] Failed to solve lab')
+            sys.exit(-9)
+
+        print(f'[+] Lab solved')
 
 
 if __name__ == "__main__":
