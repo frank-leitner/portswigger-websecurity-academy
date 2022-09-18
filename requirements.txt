@@ -2,4 +2,5 @@ beautifulsoup4
 requests
 websockets
 asyncio
-pyjwt
+pyjwt[crypto]
+jwcrypto 

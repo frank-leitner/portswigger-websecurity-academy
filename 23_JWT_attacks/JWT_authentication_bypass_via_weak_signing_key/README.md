@@ -44,13 +44,13 @@ hashcat -a 0 -m 16500 jwt.txt jwt.secrets.list
 
 After a short time, hashcat is successful in finding the correct key:
 
-![](img/hashcat_result.png)
+![Cracked secret key](img/hashcat_result.png)
 
 ### The malicious payload
 
 With the signature key known, I can create my own arbitrary tokens. I store the key in the key store of the `JWT Editor`. It needs to be base64-encoded which can be done in Burp decoder or on the command line with `echo -n 'secret1' | base64`:
 
-![](img/jwt_key.png)
+![Storing the secret key for further use](img/jwt_key.png)
 
 I request the `/admin` page with my normal user account and receive the expected `Admin interface only available if logged in as an administrator` message. This request I send to Burp Repeater.
 
@@ -58,7 +58,7 @@ The payload only contains the username and no privileges or roles. So as a first
 
 The result looks promising:
 
-![](img/repeater_administrator.png)
+![Manipulation of JWT in the request](img/repeater_administrator.png)
 
 Now that I know that the JWT is correct for `administrator`, I replace my session cookie with this manipulated token. That way, I do not need to modify requests but can work directly in the browser.
 
