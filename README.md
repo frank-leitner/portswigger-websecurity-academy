@@ -1,6 +1,8 @@
-# Writeup PortSwigger WebSecurity Academy
+# Write-up PortSwigger WebSecurity Academy
 
-This repo contains my writeups and scripts for solving the [PortSwigger WebSecurity Academy](https://portswigger.net/web-security). I plan to follow the learning path provided by PortSwigger, however, I expect to skip some of the expert-level labs initially.
+This repo contains my write-ups and scripts for solving the [PortSwigger WebSecurity Academy](https://portswigger.net/web-security). I plan to vaguely follow the learning path provided by PortSwigger, however, I expect to skip some of the expert-level labs initially.
+
+I also post these write-ups and other content on medium.com. If you want to get notifications, follow [my profile on medium](https://medium.com/@frank.leitner). Medium has a lot of quality content on almost every subject imaginable. If you consider subscribing there to get unlimited access to all content, please use my affiliate link https://medium.com/@frank.leitner/membership where I earn a small commission at no extra cost to you.
 
 ## Goal
 
