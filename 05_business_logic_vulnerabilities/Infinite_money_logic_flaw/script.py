@@ -93,7 +93,8 @@ def main():
 
     details = get_details(client.get(host).text)
 
-    number = 289
+    # less than 412 in the written description as I apply the 30% coupon to the jacket as well
+    number = 289 
     print(f'[+] Purchase and apply gift cards: 0 / {number}', end='\r')
     for i in range(1, number + 1):
         # print(f'[+] Adding gift card to cart ')
