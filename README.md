@@ -2,7 +2,7 @@
 
 This repo contains my write-ups and scripts for solving the [PortSwigger WebSecurity Academy](https://portswigger.net/web-security). I plan to vaguely follow the learning path provided by PortSwigger, however, I expect to skip some of the expert-level labs initially.
 
-I also post these write-ups and other content on medium.com. If you want to get notifications, follow [my profile on medium](https://medium.com/@frank.leitner). Medium has a lot of quality content on almost every subject imaginable. If you consider subscribing there to get unlimited access to all content, please use my affiliate link https://medium.com/@frank.leitner/membership where I earn a small commission at no extra cost to you.
+I also post these write-ups and other content on medium.com. If you want to get notifications, follow [my profile on medium](https://medium.com/@frank.leitner). 
 
 ## Goal
 
@@ -39,7 +39,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 18 | Server-side template injection || 0/7 |
 | 19 | Web cache poisoning || 0/13 |
 | 20 | HTTP Host header attacks || 2/6 |
-| 21 | HTTP request smuggling || 0/12 |
+| 21 | HTTP request smuggling || 1/12 |
 | 22 | OAuth authentication || 1/6 |
 | 23 | JWT attacks || 4/8 |
 
