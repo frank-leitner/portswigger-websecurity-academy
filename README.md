@@ -40,7 +40,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 19 | Web cache poisoning || 0/13 |
 | 20 | HTTP Host header attacks || 2/6 |
 | 21 | HTTP request smuggling || 1/12 |
-| 22 | OAuth authentication || 1/6 |
+| 22 | OAuth authentication || 2/6 |
 | 23 | JWT attacks || 4/8 |
 
 Current status of script solutions:
