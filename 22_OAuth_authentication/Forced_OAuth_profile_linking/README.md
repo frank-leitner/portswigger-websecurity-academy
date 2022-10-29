@@ -50,7 +50,7 @@ My OAuth account should then be linked to the administrator account of the appli
 
 As my OAuth account is already linked to the account of `wiener`, I wait for the timeout of the lab application to continue.
 
-initiate the attack by starting to link my OAuth account. I then drop the final request back to the application:
+I initiate the attack by starting to link my OAuth account. I then drop the final request back to the application:
 
 ![](img/dropped_request.png)
 
