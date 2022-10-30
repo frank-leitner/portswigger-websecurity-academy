@@ -1,21 +1,26 @@
-# Lab: Source code disclosure via backup files
+# Write-up: Source code disclosure via backup files @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Source code disclosure via backup files* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Server-side topics → Information disclosure
 
 Lab-Link: <https://portswigger.net/web-security/information-disclosure/exploiting/lab-infoleak-via-backup-files>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Lab leaks source code in a backup file
-- Database password is hardcoded in source code
-- Goals:
-  - Submit database password
+![Lab description](img/lab_description.png)
 
 ## Steps
 
-### Analysis
+When analyzing a web page, one of the first steps is always to check for the existence of a `robots.txt` file. 
 
-When analysing a web page, one of the first steps is to check the `robots.txt` file for any interesting location. That file instructs search engine crawlers on which content should be included or excluded from the crawler (it is up to the crawler whether they actually obey these instructions).
+It is a file that requests search engine crawlers to either include or exclude certain parts of the site from their index. Sometimes, interesting locations are revealed that way.
+
+It is up to the crawler whether they obey these wishes or ignore them. As the file is plain text, the same applies to any human reading it.
 
 ![robots.txt](img/robots.txt.png)
 
@@ -29,4 +34,6 @@ In the code, the credentials for the database connections can be found:
 
 ![credentials](img/credentials.png)
 
-Submit the value to solve the lab.
+After submitting the solution time, the lab updates to
+
+![Lab solved](img/success.png)
