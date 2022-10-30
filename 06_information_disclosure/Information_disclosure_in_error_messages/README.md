@@ -1,24 +1,32 @@
-# Lab: Information disclosure in error messages
+# Write-up: Information disclosure in error messages @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Information disclosure in error messages* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Server-side topics → Information disclosure
 
 Lab-Link: <https://portswigger.net/web-security/information-disclosure/exploiting/lab-infoleak-in-error-messages>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Lab contains vulnerable version of third-party framework
-- Goals:
-  - Obtain and submit version number
+![Lab description](img/lab_description.png)
 
 ## Steps
 
 ### Analysis
 
-This lab contains again the best of all webshops. Just this time without the ability to purchase anything.
+The lab application is a webshop. Some, mainly older, frameworks added their comment to the HTML source providing useful information. 
 
-Browsing around a bit, not much options are noticable to provide input. In fact, only the `productId` parameter when viewing product details are apparent.
+In this case, however, the HTML source of the page does not reveal anything of interest.
 
-So what happens when I modify it?
+Browsing around a bit, not many options are noticeable to provide input. In fact, only the `productId` parameter when viewing product details is apparent.
+
+What happens when I modify it?
+
+---
 
 ### Modifying parameter
 
@@ -26,12 +34,12 @@ First I try to use a productId that does not exist:
 
 ![productId_does_not_exist](img/productId_does_not_exist.png)
 
-The application gently tells me that it did not found anything. So retry it again with some non-numeric value of the parameter:
+The application gently tells me that it did not find anything. So retry it again with some non-numeric value of the parameter:
 
-![error_message](img/error_message.png)
+![Version number revealed](img/error_message.png)
 
-The application does not handle errors gracefully, revealing the full exception including the vulnerable version of Apache Struts 2 2.3.31.
+The application does not handle this error gracefully and reveals the full exception including the vulnerable version of Apache Struts 2.
 
-The only thing missing now is submitting the solution to solve the lab.
+After submitting the solution, the lab updates to
 
-![success](img/success.png)
+![Lab solved](img/success.png)
