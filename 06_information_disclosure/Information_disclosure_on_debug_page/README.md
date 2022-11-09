@@ -22,14 +22,6 @@ Below, I show finding the target file using both the commercial Burp Professiona
 
 ---
 
-### Using Burp Professional
-
-Using the Burp Content Discovery feature quickly shows the file as well:
-
-![content_discovery](img/content_discovery.png)
-
----
-
 ### Using free tools
 
 When I try to avoid using features from Burp Professional, several good free tools allow for content discovery. The one I use here is [ffuf](https://github.com/ffuf/ffuf) together with the great wordlists provided by [SecLists](https://github.com/danielmiessler/SecLists).
@@ -52,6 +44,18 @@ ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt  -u https
 
 ---
 
+
+### Using Burp Professional
+
+With the Burp Content Discovery feature, it is just as easy to find the file.
+
+![](img/open_content_discovery.png)
+
+I use the default options and start the discovery run. Burp quickly shows the `phpinfo.php` file in the site map:
+
+![content_discovery](img/content_discovery.png)
+
+---
 
 ## Finding the secret
 
