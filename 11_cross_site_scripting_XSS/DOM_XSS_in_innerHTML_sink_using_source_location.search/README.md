@@ -1,15 +1,18 @@
-# Lab: DOM XSS in innerHTML sink using source location.search
+# Write-up: DOM XSS in innerHTML sink using source location.search @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *DOM XSS in innerHTML sink using source location.search* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Client-side topics → Cross-site scripting
 
 Lab-Link: <https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-innerhtml-sink>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Application contains a DOM-XSS vulnerability in the search feature
-- Assigns user controlled input (`location.search`) to the `innerHTML` of an element
-- Goals:
-  - Raise an `alert` box
+![Lab description](img/lab_description.png)
 
 ## Steps
 
