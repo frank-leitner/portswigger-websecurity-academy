@@ -17,8 +17,8 @@ So I create the scripts to learn about python and how to use it to interact with
 ## Status
 
 | ID | Topic | Apprentice | Practitioner | Expert | 
-| --- | --- | :---: | :---: | :---: | :---: |
-|    | **Server-side topics** ||
+| --- | --- | :---: | :---: | :---: |
+|    | **Server-side topics** ||||
 | 01 | SQL injection | :heavy_check_mark: 2/2 | :heavy_multiplication_x: 14/15 | - |
 | 02 | Authentication | :heavy_check_mark: 3/3 | :heavy_check_mark: 9/9 | :heavy_check_mark: 2/2 | 
 | 03 | Directory traversal | :heavy_check_mark: 1/1 | :heavy_check_mark: 5/5 | - |
@@ -29,14 +29,14 @@ So I create the scripts to learn about python and how to use it to interact with
 | 08 | File upload vulnerabilities | :heavy_check_mark: 2/2 | :heavy_check_mark: 4/4 | :heavy_multiplication_x: 0/1 |
 | 09 | Server-side request forgery (SSRF) | :heavy_check_mark: 2/2 | :heavy_check_mark: 3/3 | :heavy_check_mark: 2/2 |
 | 10 | XXE injection | :heavy_check_mark: 2/2 | :heavy_check_mark: 6/6 | :heavy_check_mark: 1/1|
-|    | **Client-side topics** ||
+|    | **Client-side topics** ||||
 | 11 | Cross-site scripting (XSS) | :heavy_check_mark: 9/9 | :heavy_multiplication_x: 13/15 | :heavy_multiplication_x: 0/6 |
 | 12 | Cross-site request forgery (CSRF) | :heavy_check_mark: 1/1 | :heavy_check_mark: 7/7 | - |
 | 13 | Cross-origin resource sharing (CORS) | :heavy_check_mark: 2/2 | :heavy_check_mark: 1/1 | :heavy_multiplication_x: 0/1  |
 | 14 | Clickjacking | :heavy_check_mark: 3/3 | :heavy_check_mark: 2/2 | - |
 | 15 | DOM-based vulnerabilities | - | :heavy_check_mark: 5/5 | :heavy_multiplication_x: 0/2 |
 | 16 | WebSockets | :heavy_check_mark: 1/1 | :heavy_check_mark: 2/2 | - |
-|    | **Advanced topics** || 
+|    | **Advanced topics** ||||
 | 17 | Insecure deserialization | :heavy_check_mark: 1/1 | :heavy_multiplication_x: 5/6 | :heavy_multiplication_x: 0/3 |
 | 18 | Server-side template injection | - | :heavy_multiplication_x: 1/5 | :heavy_multiplication_x: 0/2 |
 | 19 | Web cache poisoning | - | :heavy_multiplication_x: 0/9 | :heavy_multiplication_x: 0/4 |
