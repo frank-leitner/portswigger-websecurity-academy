@@ -16,7 +16,9 @@ Python script: [script.py](script.py)
 
 ## Steps
 
-When using the search in this lab application, the search term is displayed in the page. This is not performed on the server side, but by using client side JavaScript:
+The lab application is a blog website with search functionality. The search term is included on the result page. 
+
+This is not performed on the server side, but by using client side JavaScript:
 
 ![HTML](img/HTML.png)
 
