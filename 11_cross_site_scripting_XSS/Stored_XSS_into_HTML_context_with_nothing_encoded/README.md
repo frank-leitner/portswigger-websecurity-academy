@@ -1,18 +1,26 @@
-# Lab: Stored XSS into HTML context with nothing encoded
+# Write-up: Stored XSS into HTML context with nothing encoded @ PortSwigger Academy
+
+![logo](img/logo.png)
+
+This write-up for the lab *Stored XSS into HTML context with nothing encoded* is part of my walkthrough series for [PortSwigger's Web Security Academy](https://portswigger.net/web-security).
+
+**Learning path**: Client-side topics → Cross-site scripting
 
 Lab-Link: <https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded>  
 Difficulty: APPRENTICE  
 Python script: [script.py](script.py)  
 
-## Known information
+## Lab description
 
-- Lab contains a stored XSS vulnerability in the comments feature.
-- Goals:
-  - Submit a comment that triggers an `alert` box on page view.
+![Lab description](img/lab_description.png)
 
 ## Steps
 
-The application of this lab is the blog platform. To find out if I can insert tags in the inputs, I write a comment with tags in as many input fields as possible. The email fields has a validation to only allow valid addresses (however 'valid' is defined here), but that validation happens on the client side in JavaScript and can be bypassed easily by intercepting and modifying the request. However, as the email is nowhere used in the page content, it makes no difference for this lab.
+The application of this lab is a blog platform that allows for comments. 
+
+To find out if I can insert tags in the inputs of the comments, I write one with tags in as many input fields as possible. 
+
+The email field has a validation to only allow valid addresses (however 'valid' is defined here), but that validation happens on the client side in JavaScript and can be bypassed easily by intercepting and modifying the request. However, the email is nowhere used in the page content so it makes no difference for this lab.
 
 ![insert_tags](img/insert_tags.png)
 
