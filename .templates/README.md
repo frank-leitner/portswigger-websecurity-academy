@@ -21,7 +21,11 @@ lab_description
 
 As usual, the first step is to analyze the functionality of the lab application. In this lab, it is XXX
 
+---
+
 ### The theory
+
+---
 
 ### The malicious payload
 
