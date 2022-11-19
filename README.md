@@ -38,7 +38,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 16 | WebSockets | :heavy_check_mark: 1/1 | :heavy_check_mark: 2/2 | - |
 |    | **Advanced topics** ||||
 | 17 | Insecure deserialization | :heavy_check_mark: 1/1 | :heavy_multiplication_x: 5/6 | :heavy_multiplication_x: 0/3 |
-| 18 | Server-side template injection | - | :heavy_multiplication_x: 1/5 | :heavy_multiplication_x: 0/2 |
+| 18 | Server-side template injection | - | :heavy_multiplication_x: 2/5 | :heavy_multiplication_x: 0/2 |
 | 19 | Web cache poisoning | - | :heavy_multiplication_x: 0/9 | :heavy_multiplication_x: 0/4 |
 | 20 | HTTP Host header attacks | :heavy_check_mark: 2/2 | :heavy_multiplication_x: 0/4 | :heavy_multiplication_x: 0/1 |
 | 21 | HTTP request smuggling | - | :heavy_multiplication_x: 1/15 | :heavy_multiplication_x: 0/7 |
