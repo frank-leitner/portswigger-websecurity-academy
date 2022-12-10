@@ -16,9 +16,9 @@ Python script: [script.py](script.py)
 
 ## Steps
 
-The lab application is a blog website with search functionality. The search term is included on the result page. 
+The lab application is a blog website with search functionality. After performing a search, the search term is included on the result page.
 
-This is not performed on the server side, but by using client side JavaScript:
+This is not performed on the server side, but by using client-side JavaScript:
 
 ![HTML](img/HTML.png)
 
@@ -26,6 +26,6 @@ If the `search` argument is provided, the `innerHTML` of a `span`-element is cha
 
 ![malicious_html](img/malicious_html.png)
 
-This will raise the JavaScript `alert` box confirming the XSS vulnerability and updates the lab to
+During the rendering of the page, the image fails to load. This in turn will raise the JavaScript `alert` box confirming the XSS vulnerability and updates the lab to
 
 ![success](img/success.png)

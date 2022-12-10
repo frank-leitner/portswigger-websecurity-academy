@@ -16,13 +16,13 @@ Python script: [script.py](script.py)
 
 ## Steps
 
-The lab application is a blog website with search functionality. The search term is included on the result page. 
+The lab application is a blog website with search functionality. After performing a search, the search term is included on the result page.
 
 A simple XSS attempt fails:
 
 ![simple_xss_attempt](img/simple_xss_attempt.png)
 
-Looking at the page source, the search term displayed is properly encoded. However, it also shows that a javascript takes the search term out of the URL and writes it into an img-tag:
+Looking at the page source, the search term displayed is properly encoded. However, it also shows that a javascript takes the search term out of the URL and writes it into an img-tag for some type of tracking:
 
 ![vulnerable_javascript](img/vulnerable_javascript.png)
 
