@@ -23,7 +23,7 @@ So I create the scripts to learn about python and how to use it to interact with
 | 02 | Authentication | :heavy_check_mark: 3/3 | :heavy_check_mark: 9/9 | :heavy_check_mark: 2/2 | 
 | 03 | Directory traversal | :heavy_check_mark: 1/1 | :heavy_check_mark: 5/5 | - |
 | 04 | Command inection | :heavy_check_mark: 1/1 | :heavy_check_mark: 4/4 | - |
-| 05 | Business logic vulnerabilities | :heavy_check_mark: 4/4 | :heavy_multiplication_x: 6/7 | - |
+| 05 | Business logic vulnerabilities | :heavy_check_mark: 4/4 | :heavy_check_mark: 7/7 | - |
 | 06 | Information disclosure | :heavy_check_mark: 4/4 | :heavy_check_mark: 1/1 | - |
 | 07 | Access control | :heavy_check_mark: 9/9 | :heavy_check_mark: 4/4 | - |
 | 08 | File upload vulnerabilities | :heavy_check_mark: 2/2 | :heavy_check_mark: 4/4 | :heavy_multiplication_x: 0/1 |

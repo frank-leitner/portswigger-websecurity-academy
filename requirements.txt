@@ -4,3 +4,4 @@ websockets
 asyncio
 pyjwt[crypto]
 jwcrypto 
+urllib
