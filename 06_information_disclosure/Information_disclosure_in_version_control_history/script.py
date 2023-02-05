@@ -39,7 +39,7 @@ def main():
 
     client = requests.Session()
     client.verify = False
-    client.proxies = proxies
+    # client.proxies = proxies
     giturl = f'{host}/.git'
 
     with tempfile.TemporaryDirectory() as tmpdirname:
